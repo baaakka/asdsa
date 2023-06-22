@@ -1,0 +1,133 @@
+@import '../../../../assets/styles/global/mixins';
+
+.drop-down {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+
+  .error-message {
+    @include error-message;
+  }
+
+  .drop-down-list {
+    width: 100%;
+    background: var(--color-tertiary-input);
+    height: fit-content;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 0;
+    margin-top: 4px;
+    box-shadow: 0px 0px 14px var(--box-shadow);
+    position: absolute;
+    z-index: 999;
+    
+    li {
+      display: block;
+      color: var(--color-fonts-2);
+      font-size: 14px;
+      font-family: Gilroy-400;
+      padding: 8px 16px;
+      border-bottom: 1px solid rgba(152, 149, 149, 0.16);
+
+      &:last-of-type {
+        border: none;
+      }
+
+      &:hover {
+        @include gradient-linear-bg(var(--deg-gradient-3),var(--color-gradient-left-3),var(--color-gradient-right-3));
+      }
+    }
+  }
+
+  .block {
+    width: calc(100% - 32px);
+    height: 100%;
+    display: flex;
+    padding: 0 16px;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-tertiary-input);
+    border-radius: 12px;
+    @include gradient-linear-border(
+      var(--deg-gradient-enabled-input),
+      var(--gradient-left-enabled-input),
+      var(--gradient-right-enabled-input),
+      2px,
+      12px
+    );
+
+    h2 {
+      color: var(--color-fonts-1);
+      font-family: Gilroy-400;
+      font-size: 16px;
+      display: block;
+      width: 80%;
+    }
+
+    mat-icon {
+      display: block;
+      transition: 0.5s ease;
+
+      &.revert {
+        transform: rotate(180deg);
+      }
+      ::ng-deep svg {
+        path {
+          stroke: var(--color-fonts-1);
+        }
+      }
+      
+    }
+
+    &.focus {
+      @include gradient-linear-border(
+        var(--deg-gradient-6),
+        var(--color-gradient-left-6),
+        var(--color-gradient-right-6),
+        2px,
+        12px
+      );
+
+      &:hover {
+        @include gradient-linear-border(
+          var(--deg-gradient-1),
+          var(--color-gradient-left-1),
+          var(--color-gradient-right-1),
+          2px,
+          12px
+        );
+
+        h2 {
+          color: var(--color-fonts-2);
+        }
+
+        svg {
+          path {
+            stroke: var(--color-fonts-2);
+          }
+        }
+      }
+    }
+
+    &:active {
+      @include gradient-linear-border(
+        var(--deg-gradient-1),
+        var(--color-gradient-left-1),
+        var(--color-gradient-right-1),
+        2px,
+        12px
+      );
+    }
+  }
+
+  &.error .block {
+    @include gradient-linear-border(
+      var(--deg-gradient-4),
+      var(--color-gradient-left-4),
+      var(--color-gradient-left-4),
+      2px,
+      12px
+    );
+  }
+}

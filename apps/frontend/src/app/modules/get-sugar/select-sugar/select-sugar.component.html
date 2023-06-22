@@ -1,0 +1,54 @@
+<div class="select-container">
+	<div>
+		<div class="title">
+		  </div>
+		  <p class="description">
+			Select the amount you need. Currently, you have <span class="bold">{{ (authService.userProfile | async)?.sugar | number }} sugar</span>.
+		  </p>
+		  <p class="mobile-title">Сhoose your sugar</p>
+		  <div class="select-block">
+			<div class="sugar-block" (click)="selectSugar(5, 1)" [class.active]="selected === 1">
+			  <div class="sugar-count">
+				<div class="sugar-text">
+				  <h3>1000</h3>
+				  <h3 class="sugar-text-mobile">Sugar</h3>
+				</div>
+
+			  </div>
+			  <div class="cost">
+				<p>Cost</p>
+				<h2 class="amount">5 USD</h2>
+			  </div>
+			</div>
+			<div class="sugar-block" (click)="selectSugar(10, 2)" [class.active]="selected === 2">
+			  <div class="sugar-count">
+				<div class="sugar-text">
+				  <h3>2500</h3>
+				  <h3 class="sugar-text-mobile">Sugar</h3>
+				</div>
+			  </div>
+			  <div class="cost">
+				<p>Cost</p>
+				<h2 class="amount">10 USD</h2>
+			  </div>
+			</div>
+			<div class="sugar-block" (click)="selectSugar(20, 3)" [class.active]="selected === 3">
+			  <div class="sugar-count">
+				<div class="sugar-text">
+				  <h3>5000</h3>
+				  <h3 class="sugar-text-mobile">Sugar</h3>
+				</div>
+			  </div>
+			  <div class="cost">
+				<p>Cost</p>
+				<h2 class="amount">20 USD</h2>
+			  </div>
+			</div>
+		  </div>
+	</div>
+
+	<div class="continue-btn">
+	  <button class="button primary desktop" [disabled]="!selected" (click)="navigateToSelectPaymentMethod()">Continue</button>
+	  <button class="button primary mobile" [disabled]="!selected" (click)="navigateToSelectPaymentMethod()">Get Sugar!</button>
+	</div>
+  </div>

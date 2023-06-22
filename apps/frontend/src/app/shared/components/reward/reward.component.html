@@ -1,0 +1,212 @@
+<div class="slice-container animation-hidden-skeleton" *ngIf='reward; else skeleton' [class.cakebox-container]="reward.type === rewardEnum.CAKEBOX">
+    <div>
+        <div class="close pointer clickable-icon" (click)="dialogRef.close()">
+            <mat-icon [svgIcon]="closeCircle"></mat-icon>
+        </div>
+        <div class="image" [class.hide-img]="showHistory">
+            <img loading="lazy" [attr.src]="reward.image" alt="">
+            <div class="cakebox" *ngIf="reward.type === rewardEnum.CAKEBOX && !showHistory">
+                <cake-cakebox [cakebox]="reward | cakeboxTransform"></cake-cakebox>
+            </div>
+        </div>
+        <div class="title">
+            <h1>{{reward.name}}</h1>
+        </div>
+        <div class="flex">
+            <div class="cake-box-items" *ngIf="reward.type === rewardEnum.CAKEBOX">
+                <div class="item" *ngFor="let rewardInBox of reward.rewards">
+                    <img loading="lazy" [attr.src]="rewardInBox.smallImage || rewardInBox.image" alt="">
+                    <div class="text">
+                        <h2>
+                            {{rewardInBox.type}}
+                        </h2>
+                        <p>{{rewardInBox.name}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="information-block" *ngIf="!data.isClaimed">
+                <div class="stats">
+                    <div class="cost">
+                        <h2>{{ language === 'ua' ? "Коштує" : 'Cost' }}</h2>
+                        <h1>{{ reward.cost ? (reward.cost | number) : 'Free'  }}</h1>
+                        <p>{{ language === 'ua' ? "Цукру" : 'Sugar' }}</p>
+                    </div>
+                </div>
+                <div class="info">
+                    <ul>
+                        <li>
+                            <div class="name">
+                                {{ language === 'ua' ? "Рідкість" : 'Rarity' }}
+                                
+                            </div>
+                            <div class="value">
+                                {{reward.rarity | titlecase}}
+                            </div>
+                        </li>
+                        <li>
+                            <div class="name">
+                                {{ language === 'ua' ? "Категорія" : 'Category' }}
+                                
+                            </div>
+                            <div class="value">
+                                {{reward.category | titlecase}}
+                            </div>
+                        </li>
+                        <li>
+                            <div class="name">
+
+                                {{ language === 'ua' ? "Створено" : 'Created' }}
+                                
+                            </div>
+                            <div class="value">
+                                {{'May 21, 2023'}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="transaction-history" [class.show-history]="showHistory" *ngIf="reward.TransactionHystory.length">
+                    <ul [class.show-full-history]="showFullHistory">
+                        <li class="row header">
+                            <h2 class="col date">Date</h2>
+                            <h2 class="col owner">Owner's Name</h2>
+                            <h2 class="col price">Price</h2>
+                        </li>
+                        <li class="row list"*ngFor="let transaction of reward.TransactionHystory">
+                            <div class="col date">{{transaction.createdAt}}</div>
+                            <div class="col owner">{{transaction.User.username}}</div>
+                            <div class="col price"> {{transaction.amount | currency}}</div>
+                        </li>
+                    </ul>
+                    <div class="full-history">
+                        <button class="button tertiary" (click)="showFullHistory = !showFullHistory">{{showFullHistory? 'Hide': 'See'}} full history</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   <div>
+    <div class="get-it-btn" *ngIf="!data.isClaimed && reward.userId !== userId">
+        <button class="button primary" (click)="getReward()">Get it</button>
+    </div>
+    <div class="get-it-btn" *ngIf="!data.isClaimed && reward.userId === userId && !reward.isConfectionary">
+        <button class="button primary" (click)="putIntoConfectionary()">Put into confectionary</button>
+    </div>
+    <div class="get-it-btn" *ngIf="!data.isClaimed && reward.userId === userId && reward.isConfectionary">
+        <button class="button primary" (click)="removeFromConfectionary()">Remove from confectionary</button>
+    </div>
+    <div class="get-it-btn" *ngIf="data.isClaimed">
+        <button class="button primary" (click)="claimCakebox()">Claim</button>
+    </div>
+    <div class="cancel-btn" *ngIf="data.isClaimed">
+        <button class="button tertiary" (click)="dialogRef.close()">Cancel</button>
+    </div>
+   </div>
+</div>
+
+<ng-template #skeleton>
+    <div class="slice-container">
+        <div class="image" >
+            <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            animation="progress-dark"
+            [theme]="{
+              'background-color': activeTheme.properties['--skeleton-color'],
+              height: '380px',
+              width: '100%',
+              'border-radius': '12px'
+            }"
+          >
+          </ngx-skeleton-loader>
+        </div>
+        <div class="title">
+            <ng-container [ngTemplateOutlet]="skeletonText"></ng-container>
+            <br>
+            <ng-container [ngTemplateOutlet]="skeletonTextBig"></ng-container>
+        </div>
+        <div class="flex">
+            <div class="information-block">
+                <div class="stats">
+                    <div class="cost">
+                        <ng-container [ngTemplateOutlet]="skeletonText"></ng-container>
+                        <br>
+                        <ng-container [ngTemplateOutlet]="skeletonTextBig"></ng-container>
+                        <br>
+                        <ng-container [ngTemplateOutlet]="skeletonText"></ng-container>
+                    </div>
+                </div>
+                <div class="info">
+                    <ul>
+                        <li>
+                            <div class="name">
+                                Rarity
+                            </div>
+                            <div class="value">
+                                <ng-container [ngTemplateOutlet]="skeletonText"></ng-container>
+
+                            </div>
+                        </li>
+                        <li>
+                            <div class="name">
+                                Category
+                            </div>
+                            <div class="value">
+                                <ng-container [ngTemplateOutlet]="skeletonText"></ng-container>
+
+                            </div>
+                        </li>
+                        <li>
+                            <div class="name">
+                                Created
+                            </div>
+                            <div class="value">
+                                <ng-container [ngTemplateOutlet]="skeletonText"></ng-container>
+                            </div>
+                        </li>
+                        <li (click)="showHistory = !showHistory" class="pointer">
+                            <div class="name">
+                                Transaction history
+                            </div>
+                            <div class="value" [class.revers]="showHistory">
+                                <mat-icon svgIcon="arrow-down"></mat-icon>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="get-it-btn">
+            <button class="button primary">Get it</button>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #skeletonText>
+    <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            animation="progress-dark"
+            [theme]="{
+              'background-color': activeTheme.properties['--skeleton-color'],
+              height: '18px',
+              width: '50px',
+              'border-radius': '2px'
+            }"
+          >
+          </ngx-skeleton-loader>
+</ng-template>
+<ng-template #skeletonTextBig>
+    <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            animation="progress-dark"
+            [theme]="{
+              'background-color': activeTheme.properties['--skeleton-color'],
+              height: '26px',
+              width: '60px',
+              'border-radius': '2px'
+            }"
+          >
+          </ngx-skeleton-loader>
+</ng-template>

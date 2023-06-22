@@ -1,0 +1,23 @@
+<div class="pagination">
+    <div class="wrapper">
+        <div class="left-arrows pointer">
+            <div class="double" (click)="firstPage()">
+                <mat-icon svgIcon="double-left"></mat-icon>
+            </div>
+            <div class="arrow pointer" (click)="previousPage()">
+                <mat-icon svgIcon="arrow-left"></mat-icon>
+            </div>
+        </div>
+        <div class="pages">
+            {{page}} of {{getPages}}
+        </div>
+        <div class="right-arrows">
+            <div class="arrow pointer" (click)="nextPage()">
+                <mat-icon svgIcon="arrow-right"></mat-icon>
+            </div>
+            <div class="double pointer" (click)="lastPage()">
+                <mat-icon svgIcon="double-right"></mat-icon>
+            </div>
+        </div>
+    </div>
+</div>

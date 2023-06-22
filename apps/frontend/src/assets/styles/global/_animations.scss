@@ -1,0 +1,14 @@
+
+.animation-hidden-skeleton {
+    animation: hide-skeleton 0.5s ease-in-out;
+  }
+
+
+@keyframes hide-skeleton {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }

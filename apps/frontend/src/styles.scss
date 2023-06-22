@@ -1,0 +1,215 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$frontend-primary: mat.define-palette(mat.$indigo-palette);
+$frontend-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$frontend-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$frontend-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $frontend-primary,
+      accent: $frontend-accent,
+      warn: $frontend-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($frontend-theme);
+
+@import './assets/styles/index.scss';
+
+html,
+body {
+  font-family: 'Gilroy-400';
+  background: linear-gradient(var(--deg-gradient-5), var(--color-gradient-left-5), var(--color-gradient-right-5));
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow: overlay;
+}
+
+.plugin {
+  width: 368px !important;
+  min-height: 600px;
+}
+
+.max-content {
+  max-width: 1312px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.visible-mat-dialog-container {
+  .mat-dialog-container {
+    overflow: visible;
+  }
+}
+
+.mat-dialog-container {
+  border: 1px solid var(--border-list-color);
+  border-radius: 17px !important;
+  background: url('./assets/imgs/sparkles-popup.png'),
+    linear-gradient(var(--deg-gradient-5), var(--color-gradient-left-5), var(--color-gradient-right-5));
+
+  @media (max-width: 1023px) {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    padding: 12px 12px 24px 24px !important;
+  }
+}
+
+.cdk-global-overlay-wrapper {
+  @media (max-width: 1023px) {
+    align-items: flex-end !important;
+  }
+}
+
+.cdk-overlay-pane {
+  max-width: 98% !important;
+  @media (max-width: 1023px) {
+    max-width: 100% !important;
+    width: 100%;
+  }
+  
+  @media (max-width: 800px) {
+   height: 94vh;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+.cdk-global-scrollblock {
+  position: relative !important;
+}
+
+.gradient-red-numbers {
+  @include gradient-linear-text(var(--deg-gradient-4), var(--color-gradient-left-4), var(--color-gradient-right-4));
+}
+.gradient-yellow-numbers {
+  @include gradient-linear-text(var(--deg-gradient-11), var(--color-gradient-left-11), var(--color-gradient-right-11));
+}
+.gradient-green-numbers {
+  @include gradient-linear-text(var(--deg-gradient-9), var(--color-gradient-left-9), var(--color-gradient-right-9));
+}
+
+// class for blurred background for dialog
+.backdropBackground {
+  backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 768px) {
+    backdrop-filter: none;
+    background: linear-gradient(var(--deg-gradient-background-modal), var(--color-gradient-left-background-modal), var(--color-gradient-right-background-modal));
+  }
+}
+
+::-webkit-scrollbar {
+  &-thumb {
+    background-color: #babac0;
+    border-radius: 16px;
+  }
+
+  &-button {
+    display: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+
+  @media (max-width:810px) {
+    width: 4px;
+  }
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: transparent;
+}
+
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+  z-index: 999999;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-color);
+}
+
+.progress-green {
+  svg {
+    display: none;
+  }
+
+  .mat-progress-bar-fill::after {
+    background-color: #6FDF2B;
+  }
+
+  .mat-progress-bar-buffer {
+    background: #2BDF89;
+    opacity: 0.2;
+  }
+
+  &.mat-progress-bar {
+    border-radius: 4px;
+  }
+}
+
+.progress-yellow {
+  svg {
+    display: none;
+  }
+  .mat-progress-bar-fill::after {
+    background-color: #FFB800;
+  }
+
+  .mat-progress-bar-buffer {
+    background: #EBD511;
+    opacity: 0.2;
+  }
+
+  &.mat-progress-bar {
+    border-radius: 4px;
+  }
+}
+
+.progress-red {
+  svg {
+    display: none;
+  }
+  .mat-progress-bar-fill::after {
+    background-color: #EC1A1A;
+  }
+
+  .mat-progress-bar-buffer {
+    background: #EF3F19;
+    opacity: 0.2;
+  }
+
+  &.mat-progress-bar {
+    border-radius: 4px;
+  }
+}

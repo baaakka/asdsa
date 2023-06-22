@@ -1,0 +1,71 @@
+<div class="method-container">
+	<div>
+
+		<h3 class="label" *ngIf="!isAdd && (userWallet | async)?.length !== 0">Select payment method</h3>
+		<div class="methods-list" *ngIf="isSelect">
+			<div
+				*ngFor="let wallet of userWallet | async; let i = index"
+				class="method pointer"
+				(click)="paymentCheck(wallet, i)"
+				[class.active]="(selected | async) === i"
+			>
+				<div class="method-name">
+					<h3>{{wallet.name}}</h3>
+					<mat-icon [svgIcon]="'cake-wallet'"></mat-icon>
+				</div>
+				<div class="address">{{ wallet.address | slice: 0:7 }} •••• •••• ••••</div>
+			</div>
+		</div>
+
+		<div class="choice" *ngIf="isSelect">
+			<p>or</p>
+		</div>
+
+		<div class="methods-list" *ngIf="selectedAddMethod && isAdd">
+			<div class="method pointer add-wallet" (click)="setSelected(1)" [class.active]="(selected | async) === 1">
+				<img loading="lazy" src="/assets/wallets/logos_metamask-icon.png" alt="" />
+				<h3>MetaMask</h3>
+			</div>
+		</div>
+
+		<div class="payment-btn" *ngIf="isSelect">
+			<div class="show-all-btn" *ngIf="showAll">
+				<button class="button tertiary">Show all</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="continue-btn">
+		<button
+			class="button primary"
+			*ngIf="!allowance && !isCrypro && isAdd"
+			[disabled]="selected.getValue() < 0 || loading"
+			(click)="continue()"
+		>
+			Continue
+		</button>
+		<button
+			class="button primary"
+			*ngIf="!allowance && !isCrypro && isSelect"
+			[disabled]="true"
+			>
+			Buy
+		</button>
+		<button
+			class="button primary"
+			*ngIf="allowance && isCrypro"
+			[disabled]="!selected || loading || !isSelectedAddress"
+			(click)="approve()"
+		>
+			Approve
+		</button>
+		<button
+			class="button primary"
+			*ngIf="!allowance && isCrypro"
+			[disabled]="!selected || loading || !isSelectedAddress"
+			(click)="buySugar()"
+		>
+			Buy
+		</button>
+	</div>
+</div>

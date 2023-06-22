@@ -1,0 +1,79 @@
+@import '../../../../assets/styles/global/mixins';
+
+.flex-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    margin: auto;
+
+
+    .title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 785px;
+        background-image: url('../../../../assets/imgs/confetti.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+
+        @media (max-width: 990px) {
+            width: 100%;
+          }
+
+        h1 {
+            padding: 50px 0;
+            font-family: 'Santhony';
+            font-weight: 100;
+            font-size: 56px;
+            @include gradient-linear-text(var(--deg-gradient-3), var(--color-gradient-left-3), var(--color-gradient-right-3));
+
+            @media (max-width: 425px) {
+                font-size: 40px;
+              }
+            @media (max-width: 375px) {
+                font-size: 35px;
+              }
+        }
+
+        img {
+            padding: 50px 0;
+            width: 59px;
+        }
+    }
+    
+    .check-mark-block {
+        width: 132px;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .text-block {
+        width: 424px;
+        @include Gilroy-500-30-fonts-2;
+        
+        @media (max-width: 425px) {
+            font-size: 20px;
+            width: 90%;
+          }
+        text-align: center;
+    }
+
+    .plugin-block {
+        margin-left: 64px;
+        margin-right: 64px;
+        width: calc(100% - 64px - 64px);
+    }
+
+    .have-account-block {
+        width: 202px;
+    }
+
+    footer {
+        @include Gilroy-400-16-fonts-2();
+      }
+}

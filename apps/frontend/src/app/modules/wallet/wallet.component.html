@@ -1,0 +1,31 @@
+<div class="container max-content">
+	<h1>{{ language === 'ua' ? "Гаманець" : 'Wallet' }}</h1>
+
+	<form class="wallets" [formGroup]="editForm" *ngIf="editForm">
+		<div class="wallet" *ngFor="let wallet of wallets" [class.edit-wallet-block]="editForm.value[wallet.address]">
+			<div class="info">
+				<h2 *ngIf="!editForm.value[wallet.address]">{{ wallet.name }}</h2>
+				<div class="edit-input" *ngIf="editForm.value[wallet.address]">
+					<cake-input [control]="editForm.controls[wallet.address]"></cake-input>
+				</div>
+				<span>{{ wallet.address }}</span>
+				<span>{{ wallet.address.slice(0, 8) }}...{{ wallet.address.slice(wallet.address.length - 8, wallet.address.length) }}</span>
+			</div>
+			<div class="settings">
+				<ng-container *ngIf="!editForm.value[wallet.address]">
+					<div class="set">
+            <a href="/get-sugar"
+						>{{ language === 'ua' ? "Додати" : 'Add' }}</a>
+					<mat-icon class="tertiary" [svgIcon]="'remove'" (click)="removeWallet(wallet.address, wallet.id)"></mat-icon>
+          </div>
+				</ng-container>
+				<div class="save-btn" *ngIf="editForm.value[wallet.address]">
+					<button class="button primary" (click)="saveEditionWallet(wallet)">Save</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="add-new-btn">
+		<button class="button tertiary" (click)="openAddingWallet()"><span class="plus">+</span> <span> {{ language === 'ua' ? "Додати новий" : 'Add new' }}</span></button>
+	</div>
+</div>

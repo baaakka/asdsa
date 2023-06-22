@@ -1,0 +1,27 @@
+<div class="input-control" [class.error]="error || hasError">
+    <label *ngIf="label" for="{{id}}">{{label}}</label>
+    <div class="block" [class.on-focus]="onFocus" >
+        <span #ref>
+            <ng-content></ng-content>
+        </span>
+        <input 
+            [class.has-icon]="ref?.childNodes?.length" 
+            [class.has-eye]="hasEye" 
+            [class.iphone-safari]="isIphoneSafari" 
+            type="{{type}}"
+            placeholder="{{placeholder}}" 
+            id="{{id}}" 
+            (input)="inputEmitter.emit(value)" 
+            [formControl]="control"
+            (focus)="onFocusDetect(true)"
+            (blur)="onFocusDetect(false)" >
+        <span class="eye" *ngIf="hasEye">
+            <mat-icon svgIcon="eye-closed"  *ngIf="!eyeHidden" (click)="eyeHidden = !eyeHidden; type = 'password'"></mat-icon>
+            <mat-icon svgIcon="eye" *ngIf="eyeHidden" (click)="eyeHidden = !eyeHidden; type = 'text'"></mat-icon>  
+        </span>
+        <div class="close-icon" *ngIf="hasCloseCircle">
+            <mat-icon svgIcon="close" (click)="onClosePressed()"></mat-icon>
+        </div>
+    </div>
+    <span class="error-message">{{error}}</span>
+ </div>

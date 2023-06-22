@@ -1,0 +1,23 @@
+<div
+  class="cakebox-container"
+  [ngClass]="isSmall ? 'small-container' : 'big-container'"
+>
+  <div
+    class="box"
+  >
+    <img loading="lazy" src="../../../../assets/imgs/confetti-cakebox.png" alt="" class="confetti" *ngIf="!isSmall">
+    <div class="background-small-icon" *ngIf="isSmall && (cakebox?.smallImage || cakebox?.image)">
+      <img loading="lazy" [attr.src]='cakebox.smallImage || cakebox.image' alt="" />
+    </div>
+    <mat-icon svgIcon="{{ cakebox.rarity || 'STARTER' }}-cakebox"></mat-icon>
+    <div class="slices">
+        <img
+        loading="lazy"
+        alt=""
+        *ngFor="let reward of cakebox?.rewards | slice:0:isSmall? 3 : maxSize; let i = index"
+        [attr.src]="reward.image"
+        [style.z-index]="i + 1"
+      />
+    </div>
+  </div>
+</div>

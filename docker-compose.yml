@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  backend:
+    image: 738438356577.dkr.ecr.us-east-1.amazonaws.com/dev.cake:cc53fe2731d9d03186c7f2e0a37368528c080b88
+#    depends_on:
+#      - mongodb
+    ports:
+      - "3333:3333"
+    command: /bin/sh -c "yarn nx serve cake"
+
+#  mongodb:
+#    image: mongo:5.0
+#    ports:
+#      - 27017:27017
+#    volumes:
+#      - ~/apps/mongo:/data/db
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=cake
+#      - MONGO_INITDB_ROOT_PASSWORD=cake2

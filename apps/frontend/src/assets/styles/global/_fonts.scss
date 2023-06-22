@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'Gilroy-900';
+  src: local('Gilroy-900'), url(./../../fonts/Gilroy-ExtraBold.otf) format('truetype');
+
+  // need for Safari compability
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy-400';
+  src: local('Gilroy-400'), url(./../../fonts/Gilroy-Light.otf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gilroy-500';
+  src: local('Gilroy-500'), url(./../../fonts/Gilroy-Medium.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy-600';
+  src: local('Gilroy-600'), url(./../../fonts/Gilroy-Semibold.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Santhony';
+  src: local('Santhony'), url(./../../fonts/santhony.regular.otf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy-Regular';
+  src: local('Gilroy-Regular'), url(./../../fonts/Gilroy-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

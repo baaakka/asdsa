@@ -1,0 +1,258 @@
+<div class="wrapper max-content">
+	<div class="desktop">
+		<div class="container">
+			<div class="user-info">
+				<div class="profile-info">
+					<div class="image-section">
+						<img loading="lazy" *ngIf="userProfile" [attr.src]="userProfile.avatar || profileImg" alt="" class="user-icon" />
+						<ngx-skeleton-loader
+							*ngIf="!userProfile"
+							appearance="circle"
+							[theme]="{
+								width: '88px',
+								height: '88px',
+								'background-color': activeTheme.properties['--skeleton-color'],
+								'margin-left': '8px'
+							}"
+						></ngx-skeleton-loader>
+					</div>
+					<div class="profile-main-info" *ngIf="isProfileOnly | async; else settingsTemplate">
+						<span *ngIf="userProfile" class="username">{{ userProfile.username }}</span>
+						<span *ngIf="userProfile" class="sugar-amount">{{ userProfile.sugar | number }} Sugar</span>
+						<ngx-skeleton-loader
+							*ngIf="!userProfile"
+							count="1"
+							[theme]="{ width: '90px', height: '17px', 'background-color': activeTheme.properties['--skeleton-color'], margin: '5px 0 0' }"
+						>
+						</ngx-skeleton-loader>
+						<ngx-skeleton-loader
+							*ngIf="!userProfile"
+							count="1"
+							[theme]="{ width: '90px', height: '17px', 'background-color': activeTheme.properties['--skeleton-color'], margin: 0 }"
+						>
+						</ngx-skeleton-loader>
+					</div>
+				</div>
+			</div>
+			<div class="first-row">
+				<div class="stats">
+					<p>Stats</p>
+					<div  *ngFor="let item of userProfile ? profileInfoData : mockArrayData;let i = index">
+						<div class="item" *ngIf="userProfile && i<3">
+              <span *ngIf="userProfile && i<3" class="item-name">{{ formatter(item.label) }} </span>
+						<span *ngIf="userProfile && i<3" class="item-amount">{{ item.value | number }}</span>
+            </div>
+					</div>
+				</div>
+				<!-- <div class="rewards">
+					<div class="header">
+						<p>Rewards</p>
+						<div class="links">
+							<button class="button tertiary" routerLink="/rewards/CAKEBOX"><span> See all </span></button>
+
+							<button class="button tertiary"><span class="plus">+</span> <span> Add new </span></button>
+						</div>
+					</div>
+					<div class="item" [class.first-child]="isFirst" *ngFor="let item of cakeBoxes; first as isFirst">
+						<span class="item-name">{{ item.name }}</span>
+						<div class="slices">
+							<div class="slice" *ngFor="let slice of item.rewards">
+								<img loading="lazy" class="slice-image" [src]="slice.smallImage || slice.image" alt="" />
+								<div class="slice-data">
+									<span class="slice-data-type">{{ slice.type | cakeTitlecase }}</span>
+									<span class="slice-data-name">{{ slice.name | cakeTitlecase }}</span>
+								</div>
+							</div>
+						</div>
+						<div class="edit pointer">
+							<mat-icon svgIcon="{{ editIcon }}"></mat-icon>
+						</div>
+					</div>
+					<div class="paginaton">
+						<cake-pagination
+							[(page)]="cakeboxActivePage"
+							[pageSize]="4"
+							[count]="cakeboxTotal"
+							(pageChange)="getCakeboxes()"
+						></cake-pagination>
+					</div>
+				</div> -->
+			</div>
+			<!-- <div class="second-row">
+        <div class="live-events">
+					<div class="header">
+						<p>Live events</p>
+						<div class="links">
+							<button class="button tertiary"><span class="plus">+</span> <span>Add</span></button>
+						</div>
+					</div>
+					<div class="content">
+            <div class="buttom-line">
+              <button class="button pink">
+                My events
+              </button>
+              <button class="button secondary-pink">
+                My events
+              </button>
+            </div>
+
+            <div class="event-line">
+              <div class="event-line-img">
+                <img src="assets/imgs/live_events.png">
+              </div>
+              <div class="event-line-text">
+                <h3>NFT NYC</h3>
+                <p> June 20-23, 2022 <span class="span">|</span> 1–3 P.M. EST</p>
+                <span class="watching">Watching: 1,234</span>
+              </div>
+              <div class="event-line-btn">
+                <button class="button primary">
+                  Join
+                </button>
+              </div>
+            </div>
+            <div class="event-line">
+              <div class="event-line-img">
+                <img src="assets/imgs/live_events2.png">
+
+              </div>
+              <div class="event-line-text">
+                <h3>European Blockchain Convention</h3>
+                <p>June 26-28, 2022 <span class="span">|</span> 5–11 P.M. EST</p>
+              </div>
+              <div class="event-line-btn">
+                <button class="button primary">
+                  Join
+                </button>
+              </div>
+            </div>
+            <div class="event-line">
+              <div class="event-line-img">
+                <img src="assets/imgs/live_events3.png">
+
+              </div>
+              <div class="event-line-text">
+                <h3>ETHCC 5 Conference</h3>
+                <p>July 19-21, 2022<span class="span">|</span>9–10 A.M. EST</p>
+              </div>
+              <div class="event-line-btn">
+                <button class="button primary">
+                  Join
+                </button>
+              </div>
+            </div>
+					</div>
+				</div>
+				<div class="platforms">
+					<div class="header">
+						<p>Platforms</p>
+						<div class="links">
+							<button class="button tertiary" routerLink="/rewards/CAKEBOX"><span> See all </span></button>
+
+							<button class="button tertiary"><span class="plus">+</span> <span> Add new </span></button>
+						</div>
+					</div>
+					<div class="content">
+						<div class="platform" [class.popular-platform]="platform.isPopular" *ngFor="let platform of getPlatforms()">
+							<img loading="lazy" src="../../../assets/icons/popular-fire.png" alt="popular" class="popular" *ngIf="platform.isPopular" />
+							<div class="platform-detail">
+								<img
+									loading="lazy"
+									src="../../../assets/platforms/{{ platform.platform }}-{{ getPrefix(platform.platform) }}.svg"
+									alt=""
+									class="platform-detail-icon"
+								/>
+								<span class="platform-detail-name">{{ platform.platform }}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> -->
+		</div>
+	</div>
+	<div class="mobile">
+		<div class="container">
+			<div class="cakeboxes">
+				<div class="cakebox" *ngFor="let item of userProfile ? profileSLices : mockArrayData">
+					<img loading="lazy" *ngIf="userProfile" [attr.src]="item" alt="" />
+					<ngx-skeleton-loader
+						*ngIf="!userProfile"
+						[theme]="{ width: '100%', height: '100%', 'background-color': activeTheme.properties['--skeleton-color'] }"
+					>
+					</ngx-skeleton-loader>
+				</div>
+			</div>
+			<div class="user-info">
+				<div class="profile-info">
+					<div class="image-section">
+						<img loading="lazy" *ngIf="userProfile" [attr.src]="userProfile.avatar || profileImg" alt="" class="user-icon" />
+						<ngx-skeleton-loader
+							*ngIf="!userProfile"
+							appearance="circle"
+							[theme]="{
+								width: '88px',
+								height: '88px',
+								'background-color': activeTheme.properties['--skeleton-color'],
+								'margin-left': '8px'
+							}"
+						>
+						</ngx-skeleton-loader>
+					</div>
+					<div class="profile-main-info" *ngIf="isProfileOnly | async; else settingsTemplate">
+						<span *ngIf="userProfile" class="username">{{ userProfile.username }}</span>
+						<span *ngIf="userProfile" class="sugar-amount">{{ userProfile.sugar | number }} Sugar</span>
+            <span *ngIf='userProfile' class='log-out pointer' (click)="signOut()">Logout</span>
+						<ngx-skeleton-loader
+							*ngIf="!userProfile"
+							count="1"
+							[theme]="{ width: '90px', height: '17px', 'background-color': activeTheme.properties['--skeleton-color'], margin: '5px 0 0' }"
+						>
+						</ngx-skeleton-loader>
+						<ngx-skeleton-loader
+							*ngIf="!userProfile"
+							count="1"
+							[theme]="{ width: '90px', height: '17px', 'background-color': activeTheme.properties['--skeleton-color'], margin: 0 }"
+						>
+						</ngx-skeleton-loader>
+					</div>
+				</div>
+				<div class="user-details">
+					<div class="item" *ngFor="let item of userProfile ? profileInfoData : mockArrayData">
+						<span *ngIf="userProfile" class="item-name">{{ item.label }}</span>
+						<span *ngIf="userProfile" class="item-amount">{{ item.value | number }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<ng-template #settingsTemplate>
+	<div class="profile-settings">
+		<div class="profile-settings-wrapper" *ngIf="userProfile">
+			<div class="profile-settings-input">
+				<cake-input (inputEmitter)="handleInput()" [hasError]="!!(isErrorVisible | async)" [control]="profileNameControl"></cake-input>
+			</div>
+			<div class="profile-settings-button">
+				<button class="button primary" [disabled]="this.isErrorMessageVisible || enteredInvalidName" (click)="onSaveButtonClick()">
+					Save
+				</button>
+			</div>
+		</div>
+		<ngx-skeleton-loader
+			*ngIf="!userProfile"
+			[theme]="{
+				width: '100%',
+				height: '49px',
+				'background-color': activeTheme.properties['--skeleton-color']
+			}"
+		>
+		</ngx-skeleton-loader>
+		<span class="error-message" *ngIf="wasNameChanged && (isErrorMessageVisible || (isErrorVisible | async))"
+			>! Profile name is already in use</span
+		>
+		<span class="sugar-settings" *ngIf="!isErrorMessageVisible || (isErrorVisible | async) === false"
+			>{{ userProfile.sugar | number }} Sugar</span
+		>
+	</div>
+</ng-template>

@@ -1,0 +1,161 @@
+@import "../../../../assets/styles/global/mixins";
+
+.slice-container {
+	width: 610px;
+	height: 90vh;
+	position: relative;
+
+	@media (max-width: 1023px) {
+		padding-top: 20px;
+		height: 80vh;
+	}
+
+	.close {
+		position: absolute;
+		right: 0;
+		top: 0;
+
+		@media (max-width: 1023px) {
+			display: none;
+		}
+		mat-icon {
+			fill: var(--close-icon-color);
+		}
+	}
+
+	@media (max-width: 1023px) {
+		width: 100% !important;
+	}
+
+	h3 {
+		margin: 0;
+		font-family: "Gilroy-400";
+		font-size: 16px;
+		margin: 0;
+		color: var(--color-fonts-1);
+		text-align: center;
+
+		@media (max-width: 768px) {
+			font-size: 12px;
+		}
+	}
+
+	.avatar {
+		width: 119px;
+		height: 119px;
+		background: linear-gradient(var(--deg-gradient-2), var(--color-gradient-left-2), var(--color-gradient-right-2));
+		border-radius: 50%;
+		margin: auto;
+
+		img {
+			border-radius: 50%;
+			display: block;
+			object-fit: cover;
+			margin: auto;
+			width: 104px;
+			height: 104px;
+			padding-top: 2px;
+		}
+	}
+
+	.info {
+		border-bottom: 1px solid var(--border-list-color);
+		padding-bottom: 30px;
+
+		@media (max-width: 768px) {
+			padding-bottom: 10px;
+		}
+
+		h1 {
+			font-family: "Santhony";
+			font-weight: 400;
+			font-size: 40px;
+			@include gradient-linear-text(var(--deg-gradient-3), var(--color-gradient-left-3), var(--color-gradient-right-3));
+			text-align: center;
+			margin: 20px 0 0;
+
+			@media (max-width: 768px) {
+				font-size: 32px;
+				margin: 5px 0 0;
+			}
+		}
+	}
+
+	.rewards {
+		cursor: pointer;
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		min-height: 245px;
+		max-width: 610px;
+		flex-wrap: wrap;
+		margin: auto;
+
+		.reward {
+			margin-top: 30px;
+			width: 180px;
+			text-align: left;
+
+			@media (max-width: 768px) {
+				width: 30%;
+				margin-top: 15px;
+			}
+
+			.name,
+			.cost,
+			.sugar {
+				margin: 0;
+				width: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+
+			img {
+				width: 72px;
+				height: 72px;
+				object-fit: cover;
+				display: block;
+				margin: auto;
+				border-radius: 50%;
+			}
+
+			.type {
+				text-align: left;
+			}
+
+			.name {
+				font-family: "Gilroy-400";
+				font-size: 20px;
+				color: var(--color-fonts-2);
+
+				@media (max-width: 768px) {
+					font-size: 16px;
+				}
+			}
+
+			.cost {
+				font-family: "Gilroy-600";
+				font-size: 32px;
+				color: var(--color-fonts-2);
+				margin-top: 10px;
+
+				@media (max-width: 768px) {
+					font-size: 20px;
+				}
+			}
+
+			.sugar {
+				color: var(--color-fonts-2);
+				text-align: left;
+			}
+		}
+	}
+
+	.pagination {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		margin-bottom: 20px;
+	}
+}

@@ -1,0 +1,281 @@
+<div class="content">
+  <div class="wrapper">
+    <div class="title">
+      <h1>{{language === 'ua' ? 'Гляньте сюди': 'Have a look!'}}</h1>
+      <div>
+        <a routerLink="/rewards/SLICE"> {{language === 'ua' ? 'Дивитись усі' : 'See all'}} ({{ slicePagination.count }}) </a
+        ><mat-icon svgIcon="arrow-left-blue"></mat-icon>
+      </div>
+    </div>
+    <div class="container-for-shadow">
+      <div class="shadow-block"></div>
+      <div class="list">
+        <div class="slices big-slices pointer" *ngIf="getOffsetWidth > 768">
+          <div
+            class="slice animation"
+            *ngFor="let slice of slices.length ? slices.slice(0, 13) : getMockArray(6); let i = index"
+            (click)="slices.length ? modalsService.openRewardPopup(slice.id) : ''"
+          >
+            <ng-container *ngIf="slices.length; else skeletonBigSlice">
+              <img loading="lazy" [attr.src]="slice.image" alt="" />
+              <h2>{{ slice.name }}</h2>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-for-shadow">
+      <div class="shadow-block"></div>
+      <div
+      class="list"
+    >
+      <div class="slices small-slices">
+        <div
+          class="slice animation pointer"
+          *ngFor="let slice of slices.length ? (getOffsetWidth > 768 ? slices.slice(12) : slices.slice(0, 15)) : getMockArray(9); let i = index"
+          (click)="modalsService.openRewardPopup(slice.id)"
+        >
+          <ng-container *ngIf="slices.length; else skeletonSmallSlice">
+            <img loading="lazy" [attr.src]="slice.image" alt="" />
+            <h2>{{ slice.name }}</h2>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </div>
+  <!-- <div class="wrapper">
+    <div class="title cake-cakebox-title">
+      <h1>Featured this week</h1>
+      <div>
+        <a routerLink="/rewards/CAKEBOX">See all ({{ cakeboxPagination.count }}) </a
+        ><mat-icon svgIcon="arrow-left-blue"></mat-icon>
+      </div>
+    </div>
+    <div class="container-for-shadow">
+      <div class="shadow-block"></div>
+      <div
+      class="list"
+    >
+      <div class="cakeboxes">
+        <div
+          class="cakebox animation pointer"
+          *ngFor="let cakebox of cakeboxes.length ? cakeboxes : getMockArray(4); let i = index"
+          (click)="modalsService.openRewardPopup(cakebox.id)"
+        >
+          <ng-container *ngIf="cakeboxes.length; else skeletonCakebox">
+            <div class="box">
+              <img loading="lazy" [attr.src]="cakebox.image" alt="" />
+              <div class="cakebox-container">
+                <cake-cakebox [cakebox]="cakebox | cakeboxTransform"></cake-cakebox>
+              </div>
+            </div>
+            <h4>{{ cakebox.type.toLowerCase().replace('cake', 'cak3') | titlecase }}</h4>
+            <h2>{{ cakebox.name }}</h2>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    </div> -->
+
+  <!-- </div> -->
+
+  <!-- <div class="wrapper">
+    <div class="title last-title">
+      <h1>Promoted & hot items</h1>
+      <div>
+        <a routerLink="/grab-a-slice/KOL">
+         See all ({{ usersPagination.count }}) <mat-icon svgIcon="arrow-left-blue"></mat-icon
+        ></a>
+      </div>
+    </div>
+    <div class="container-for-shadow">
+      <div class="shadow-block kol-shadow"></div>
+      <div
+      class="list"
+    >
+      <div class="users">
+        <ng-container *ngIf="users.length; else skeletonKol">
+          <div class="user animation" *ngFor="let user of users; let i = index" (click)="modalsService.openKolPopup(user)">
+            <div class="user-info pointer">
+              <div class="avatar">
+                <img loading="lazy" [attr.src]="user.user.avatar || getRandomAvatar" />
+              </div>
+              <h4>{{ user.user.firstName }} {{ user.user.lastName }}</h4>
+              <h2>{{ user.user.username }}</h2>
+            </div>
+            <div class="user-slices">
+              <div class="user-slice pointer" *ngFor="let slice of user.rewards | slice: 0:3">
+                <div class="slice-img">
+                  <img loading="lazy" [attr.src]="slice.smallImage || slice.image" alt="" />
+                </div>
+                <div class="slice-info">
+                  <h4>{{ slice.type | titlecase}}</h4>
+                  <h2>{{ slice.name }}</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="banner-wrapper">
+    <div class="flex">
+      <div class="banner" routerLink="/get-sugar">
+        <img  loading="lazy" src="../../../assets/imgs/banner-how-does-work.png" alt="" class="big-banner" />
+        <img loading="lazy" src="../../../assets/imgs/need-sugar.png" alt="" class="small-banner" />
+        <h2 class="small-banner">Need sugar? Get some here!</h2>
+        <mat-icon svgIcon="arrow-left-blue" class="small-banner"></mat-icon>
+      </div>
+      <div class="banner">
+        <img routerLink="/get-sugar" loading="lazy" src="../../../assets/imgs/banner-need-sugar.png" alt="" class="big-banner" />
+        <img loading="lazy" src="../../../assets/imgs/how-does-work.png" alt="" class="small-banner" />
+        <h2 class="small-banner">How does this work? Watch tutorial video here.</h2>
+        <mat-icon svgIcon="arrow-left-blue" class="small-banner"></mat-icon>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<ng-template #skeletonKol>
+  <div class="user animation" *ngFor="let item of getMockArray(6)">
+    <div class="user-info pointer">
+      <div class="avatar">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="circle"
+          animation="progress-dark"
+          [theme]="{
+            'background-color': activeTheme.properties['--skeleton-color'],
+            width: '100%',
+            height: '100%',
+            margin: 0
+          }"
+        >
+        </ngx-skeleton-loader>
+      </div>
+      <ng-container [ngTemplateOutlet]="skeletonSmallText"></ng-container>
+      <br />
+      <ng-container [ngTemplateOutlet]="skeletonBigText"></ng-container>
+    </div>
+    <div class="user-slices">
+      <div class="user-slice pointer" *ngFor="let item of getMockArray(3)">
+        <div class="slice-img">
+          <ngx-skeleton-loader
+            count="1"
+            appearance="line"
+            animation="progress-dark"
+            [theme]="{
+              'background-color': activeTheme.properties['--skeleton-color'],
+              width: getOffsetWidth > 768 ? '48px' : '25px',
+              height: getOffsetWidth > 768 ? '48px' : '25px',
+              'border-radius': '2px'
+            }"
+          >
+          </ngx-skeleton-loader>
+        </div>
+        <div class="slice-info">
+          <ng-container [ngTemplateOutlet]="skeletonSmallText"></ng-container>
+          <br />
+          <ng-container [ngTemplateOutlet]="skeletonBigText"></ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #skeletonBigSlice>
+  <ngx-skeleton-loader
+    count="1"
+    appearance="line"
+    animation="progress-dark"
+    [theme]="{
+      'background-color': activeTheme.properties['--skeleton-color'],
+      width: '224px',
+      height: '224px',
+      'border-radius': '12px'
+    }"
+  >
+  </ngx-skeleton-loader>
+  <br />
+  <ng-container [ngTemplateOutlet]="skeletonSmallText"></ng-container>
+  <br />
+  <ng-container [ngTemplateOutlet]="skeletonBigText"></ng-container>
+</ng-template>
+
+<ng-template #skeletonSmallSlice>
+  <div class="small-skeleton-slice">
+    <ngx-skeleton-loader
+    count="1"
+    appearance="line"
+    animation="progress-dark"
+    [theme]="{
+      'background-color': activeTheme.properties['--skeleton-color'],
+      width: '100%',
+      height: '100%',
+      'border-radius': '12px',
+      margin: 0
+    }"
+  >
+  </ngx-skeleton-loader>
+  </div>
+
+  <ng-container [ngTemplateOutlet]="skeletonSmallText"></ng-container>
+  <br />
+  <ng-container [ngTemplateOutlet]="skeletonBigText"></ng-container>
+</ng-template>
+
+<ng-template #skeletonCakebox>
+  <div class="box">
+    <ngx-skeleton-loader
+      count="1"
+      appearance="line"
+      animation="progress-dark"
+      [theme]="{
+        'background-color': activeTheme.properties['--skeleton-color'],
+        width: '100%',
+        height: '100%',
+        'border-radius': '12px'
+      }"
+    >
+    </ngx-skeleton-loader>
+  </div>
+  <br />
+  <ng-container [ngTemplateOutlet]="skeletonSmallText"></ng-container>
+  <br />
+  <ng-container [ngTemplateOutlet]="skeletonBigText"></ng-container>
+</ng-template>
+
+<ng-template #skeletonSmallText>
+  <ngx-skeleton-loader
+    count="1"
+    appearance="line"
+    animation="progress-dark"
+    [theme]="{
+      'background-color': activeTheme.properties['--skeleton-color'],
+      width: '50px',
+      height: getOffsetWidth > 768 ? '20px' : '16px',
+      'border-radius': '2px',
+      margin: 0
+    }"
+  >
+  </ngx-skeleton-loader>
+</ng-template>
+
+<ng-template #skeletonBigText>
+  <ngx-skeleton-loader
+    count="1"
+    appearance="line"
+    animation="progress-dark"
+    [theme]="{
+      'background-color': activeTheme.properties['--skeleton-color'],
+      width: '80px',
+      height: getOffsetWidth > 768 ? '30px' : '17px',
+      'border-radius': '2px',
+      margin: 0
+    }"
+  >
+  </ngx-skeleton-loader>
+</ng-template>

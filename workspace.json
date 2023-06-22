@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "cake": "apps/cake",
+    "frontend": "apps/frontend",
+    "lib-api-interface": "libs/lib-api-interface",
+    "subgraph": "apps/subgraph",
+    "utils": "libs/utils",
+    "web3": "libs/web3",
+    "frontend-e2e": "apps/frontend-e2e"
+  }
+}

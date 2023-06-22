@@ -1,0 +1,25 @@
+.sparkles {
+  background-image: url('../../../assets/imgs/sparkles-dark.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+
+  .webclip-wrapper {
+    width: 100%;
+    position: fixed;
+    bottom: 16px;
+    z-index: 999;
+  }
+  
+  .cake-footer {
+    margin-top: 30px;
+
+    @media(max-width: 768px) {
+      margin: 0;
+    } 
+  }
+}

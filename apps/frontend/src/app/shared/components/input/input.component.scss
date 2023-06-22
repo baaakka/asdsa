@@ -1,0 +1,135 @@
+@import '../../../../assets/styles/global/mixins';
+
+.input-control {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-fonts-2);
+    margin-bottom: 8px;
+    font-family: 'Gilroy-600';
+  }
+
+  .error-message {
+    @include error-message;
+  }
+
+  .block {
+    width: 100%;
+    height: fit-content;
+    @include gradient-linear-border(
+      var(--deg-gradient-enabled-input),
+      var(--gradient-left-enabled-input),
+      var(--gradient-right-enabled-input),
+      2px,
+      12px
+    );
+
+    &.on-focus {
+      @include gradient-linear-border(var(--deg-gradient-6), var(--color-gradient-left-6), var(--color-gradient-right-6), 2px, 12px);
+    }
+
+    &:active {
+      @include gradient-linear-border(var(--deg-gradient-1), var(--color-gradient-left-1), var(--color-gradient-right-1), 2px, 12px);
+    }
+
+    ::ng-deep mat-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 24px;
+      z-index: 1;
+      ::ng-deep svg {
+        path {
+          stroke: var(--color-fonts-1);
+        }
+      }
+    }
+
+    .close-icon {
+      mat-icon {
+        cursor: pointer;
+        left: auto;
+        right: 20px;
+      }
+    }
+
+    .eye {
+      mat-icon {
+        cursor: pointer;
+        left: auto;
+        right: 20px;
+      }
+    }
+
+    input {
+      border-radius: 12px;
+      width: calc(100% - 20px);
+      width: -webkit-calc(100% - 20px);
+      width: -moz-calc(100% - 20px);
+      height: 43px;
+      border: none;
+      padding-left: 16px;
+      color: var(--color-fonts-1);
+      background: var(--color-tertiary-input);
+      font-family: 'Gilroy-500';
+      font-size: 16px;
+      line-height: 22px;
+
+      &.iphone-safari {
+        width: calc(100% - 25px);
+        width: -webkit-calc(100% - 25px);
+        width: -moz-calc(100% - 25px);
+        
+        &.has-icon {
+          padding-left: 50px;
+          width: calc(100% - 57px);
+          width: -moz-calc(100% - 57px);
+          width: -webkit-calc(100% - 57px);
+        }
+    
+        &.has-eye {
+          padding-left: 16px;
+          width: calc(100% - 25px);
+          width: -moz-calc(100% - 25px);
+          width: -webkit-calc(100% - 25px);
+        }
+      }
+
+      &.has-icon {
+        padding-left: 50px;
+        width: calc(100% - 53px);
+        width: -moz-calc(100% - 53px);
+        width: -webkit-calc(100% - 53px);
+      }
+  
+      &.has-eye {
+        padding-left: 16px;
+        width: calc(100% - 20px);
+        width: -moz-calc(100% - 20px);
+        width: -webkit-calc(100% - 20px);
+      }
+
+      &::placeholder {
+        color: var(--color-fonts-1);
+        font-size: 16px;
+        font-family: 'Gilroy-400';
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+
+      &:active {
+        color: var(--color-fonts-2);
+      }
+    }
+  }
+
+  &.error .block {
+    @include gradient-linear-border(var(--deg-gradient-4), var(--color-gradient-left-4), var(--color-gradient-left-4), 2px, 12px);
+  }
+}

@@ -1,0 +1,12 @@
+<div class="drop-down" [class.error]="error" #dropDown>
+    <div class="block" (click)="isOpened = !isOpened" [class.focus]="isOpened || chosenOption">
+        <h2>{{chosenOption? chosenOption.label : placeholder}}</h2>
+        <mat-icon svgIcon="arrow-down" [class.revert]="isOpened"></mat-icon>
+    </div>
+    <span class="error-message" *ngIf="error">{{error}}</span>
+    <ul class="drop-down-list" *ngIf="isOpened">
+        <li *ngFor="let option of options" (click)="chooseOption.emit(option); isOpened = !isOpened; chosenOption = option;">
+            {{option.label}}
+        </li>
+    </ul>
+</div>

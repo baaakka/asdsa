@@ -1,0 +1,25 @@
+<div class="container" *ngIf="cakeboxes">
+    <h2 *ngIf="!cakeboxes.length">All free cak3boxes claimed!</h2>
+    <div class="logo" *ngIf="hasInitialBoxes">
+        <img loading="lazy" src="assets/imgs/download plugin banner.png" alt="">
+    </div>
+    <div class="logo" *ngIf="!cakeboxes.length" routerLink="/confectionery">
+        <img loading="lazy" src="assets/imgs/download plugin banner (1).png" alt="">
+    </div>
+    <div class="cake-boxes" *ngIf="cakeboxes.length">
+        <div class="title">
+            <p>New Cak3boxes ({{count}})</p>
+        </div>
+        <div class="cake-boxes-container">
+            <div class="cake-box-item" *ngFor="let cakeBox of cakeboxes">
+                <div class="cake-box-info">
+                    <img loading="lazy" [attr.src]="cakeBox.smallImage" [alt]="cakeBox.name">
+                    <span>{{cakeBox.name}}</span>
+                </div>
+                <div class="claim-button" (click)="claim(cakeBox.id)">
+                    <button class="button primary">Claim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

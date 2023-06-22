@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="close" (click)="onCloseClick()">
+    <mat-icon [svgIcon]="closeCircle"></mat-icon>
+  </div>
+  <div class="info">
+    <div class="headings">
+      <h1>Do you want</h1>
+      <h1>to save changes?</h1>
+    </div>
+    <div class="buttons">
+      <button class="button primary" (click)="onSaveClick()">Save</button>
+      <button class="button tertiary close-btn" (click)="onCloseClick()">No, thanks</button>
+    </div>
+  </div>
+</div>

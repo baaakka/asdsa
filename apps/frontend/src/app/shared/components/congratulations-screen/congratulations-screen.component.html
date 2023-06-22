@@ -1,0 +1,19 @@
+<div class="flex-block">
+    <div class="title">
+        <h1>{{title}}</h1>
+        <img loading="lazy" src="{{titleImg}}">
+    </div>
+    <div class="check-mark-block">
+        <img loading="lazy" src="{{mark}}" alt="">
+    </div>
+    <div class="text-block">
+        {{text}}
+    </div>
+    <div class="plugin-block" *ngIf="isNeedPlugin">
+        <cake-download-plugin></cake-download-plugin>
+    </div>
+    <div class="have-account-block">
+        <button class="button primary" [routerLink]="router">{{btnText}}</button>
+    </div>
+    <footer>© 2022 Cak3</footer>
+</div>

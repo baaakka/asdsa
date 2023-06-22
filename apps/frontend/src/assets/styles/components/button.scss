@@ -1,0 +1,125 @@
+@import "../global/mixins";
+
+.button {
+	width: 100%;
+	height: 40px;
+	border-radius: 16px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: "Gilroy-500";
+	font-size: 16px;
+	transition: 0.5s ease-in-out;
+
+	.plus {
+		padding-top: 0 !important; 
+		font-size: 28px;
+		margin-right: 5px;
+		font-family: "Gilroy-400";
+	}
+
+	&:focus-visible {
+		outline: none;
+	}
+
+	&.primary {
+		@include btn-default(
+			var(--color-fonts-3),
+			linear-gradient(var(--deg-gradient-3), var(--color-gradient-left-3), var(--color-gradient-right-3)),
+			linear-gradient(var(--deg-gradient-3), var(--color-gradient-left-3), var(--color-gradient-right-3))
+		);
+		@include btn-hover(
+			var(--color-fonts-3),
+			linear-gradient(var(--deg-gradient-1), var(--color-gradient-left-1), var(--color-gradient-right-1)),
+			linear-gradient(var(--deg-gradient-1), var(--color-gradient-left-1), var(--color-gradient-right-1))
+		);
+		@include btn-disabled(
+			var(--color-fonts-3),
+			linear-gradient(var(--deg-gradient-disabled), var(--color-gradient-left-disabled), var(--color-gradient-right-disabled)),
+			linear-gradient(var(--deg-gradient-disabled), var(--color-gradient-left-disabled), var(--color-gradient-right-disabled))
+		);
+	}
+
+	&.secondary {
+		background: var(--color-transparent);
+		border: none;
+		@include gradient-linear-border(var(--deg-gradient-3), var(--color-gradient-left-3), var(--color-gradient-right-3), 2px, 16px);
+		@include gradient-linear-text(var(--deg-gradient-3), var(--color-gradient-left-3), var(--color-gradient-right-3));
+
+		&:hover {
+			cursor: pointer;
+			transition: 0.5s ease-in-out;
+			text-decoration: none;
+			@include gradient-linear-border(var(--deg-gradient-1), var(--color-gradient-left-1), var(--color-gradient-right-1), 2px, 16px);
+			@include gradient-linear-text(var(--deg-gradient-1), var(--color-gradient-left-1), var(--color-gradient-right-1));
+		}
+
+		&.unfollow:hover {
+			cursor: pointer;
+			transition: 0.5s ease-in-out;
+			text-decoration: none;
+			@include gradient-linear-border(var(--deg-gradient-7), var(--color-gradient-left-7), var(--color-gradient-right-7), 2px, 16px);
+			@include gradient-linear-text(var(--deg-gradient-7), var(--color-gradient-left-7), var(--color-gradient-right-7));
+		}
+	}
+
+  &.pink {
+		@include btn-default(
+			#fff,
+			linear-gradient(var(--deg-gradient-live-events), var(--color-gradient-left-live-events), var(--color-gradient-right-live-events)),
+			linear-gradient(var(--deg-gradient-live-events), var(--color-gradient-left-live-events), var(--color-gradient-right-live-events))
+		);
+	}
+
+  &.secondary-pink {
+		background: var(--color-transparent);
+		border: 1px solid rgba(0, 0, 0, 0.1);
+	  color: #977E89;
+	}
+
+	&.error {
+		background: var(--color-transparent);
+		border: none;
+		@include gradient-linear-border(var(--deg-gradient-4), var(--color-gradient-left-4), var(--color-gradient-right-4), 2px, 16px);
+		@include gradient-linear-text(var(--deg-gradient-4), var(--color-gradient-left-4), var(--color-gradient-right-4));
+
+		&:hover {
+			cursor: pointer;
+			transition: 0.5s ease-in-out;
+			text-decoration: none;
+			@include gradient-linear-border(var(--deg-gradient-1), var(--color-gradient-left-1), var(--color-gradient-right-1), 2px, 16px);
+			@include gradient-linear-text(var(--deg-gradient-1), var(--color-gradient-left-1), var(--color-gradient-right-1));
+		}
+	}
+
+	&.tertiary {
+		border: none;
+		background: -webkit-linear-gradient(var(--color-transparent));
+		@include gradient-linear-text(var(--deg-gradient-3), var(--color-gradient-left-3), var(--color-gradient-right-3));
+
+		span {
+			padding-top: 3px;
+			@include gradient-liner-span-text(var(--deg-gradient-3), var(--color-gradient-left-3), var(--color-gradient-right-3));
+		}
+
+		&:hover {
+			cursor: pointer;
+			transition: 0.5s ease-in-out;
+			text-decoration: none;
+			@include gradient-linear-text(var(--deg-gradient-1), var(--color-gradient-left-1), var(--color-gradient-right-1));
+
+			span {
+				cursor: pointer;
+				transition: 0.5s ease-in-out;
+				text-decoration: none;
+				@include gradient-linear-text(var(--deg-gradient-1), var(--color-gradient-left-1), var(--color-gradient-right-1));
+			}
+		}
+
+		&:disabled {
+			-webkit-text-fill-color: var(--color-fonts-list-head);
+			-moz-text-fill-color: var(--color-fonts-list-head);
+			cursor: not-allowed;
+		}
+	}
+}

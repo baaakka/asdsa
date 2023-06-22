@@ -1,0 +1,11 @@
+<div class="close pointer" (click)="dialogRef.close()">
+  <mat-icon svgIcon="close-icon"></mat-icon>
+</div>
+<div class="container">
+  <img loading="lazy" src="assets/imgs/Hugging face.png" alt="" />
+  <h1>{{ data.text }}</h1>
+  <div class="buttons">
+    <button class="button tertiary" (click)="dialogRef.close(false)">Cancel</button>
+    <button class="button primary" (click)="dialogRef.close(true)">Yes</button>
+  </div>
+</div>

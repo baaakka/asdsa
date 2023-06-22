@@ -1,0 +1,27 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"rootDir": ".",
+		"sourceMap": true,
+		"declaration": false,
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"importHelpers": true,
+		"target": "es2016",
+		"module": "esnext",
+		"lib": ["es2017", "dom"],
+		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
+		"baseUrl": ".",
+		"paths": {
+			"@cake/core": ["libs/core/src/index.ts"],
+			"@cake/lib-api-interface": ["libs/lib-api-interface/src/index.ts"],
+			"@cake/utils": ["libs/utils/src/index.ts"],
+			"@cake/web3": ["libs/web3/src/index.ts"]
+		},
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true
+	},
+	"exclude": ["node_modules", "tmp"]
+}

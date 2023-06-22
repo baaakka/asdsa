@@ -1,0 +1,26 @@
+<div class="slice-container">
+    <div class="close pointer" (click)="dialogRef.close()">
+        <mat-icon svgIcon="tooltip-cross-close"></mat-icon>
+    </div>
+    <div class="image" >
+        <div class="background"></div>
+        <img loading="lazy" [attr.src]="data.image || data.smallImage" alt="">
+        <div class="cakebox" *ngIf="data.type === rewardEnum.CAKEBOX">
+            <cake-cakebox [cakebox]="data | cakeboxTransform" ></cake-cakebox>
+        </div>
+    </div>
+    <div class="text">
+        <h1>
+            Get {{data.name}} for {{data.cost}} sugar?
+        </h1>
+        <h2>
+            You currently have {{(authService.userProfile | async)?.sugar}} sugar
+        </h2>
+    </div>
+    <div class="confirm-btn">
+        <button class="button primary" [disabled]="disabled" (click)="byReward(data.id)">Yes</button>
+    </div>
+    <div class="confirm-btn">
+        <button class="button tertiary" (click)="returnToReward(data.id)">Cancel</button>
+    </div>
+</div>

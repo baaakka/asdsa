@@ -1,0 +1,13 @@
+<div *ngIf="visible" [ngClass]="isPopup ? 'wrapper-popup' : 'wrapper-full'">
+    <div class="close" *ngIf="isPopup" (click)="closePopup()">
+        <mat-icon svgIcon="close-dark" class="primary"></mat-icon>
+    </div>
+    <div class="content">
+        <div class="logo">
+            <mat-icon svgIcon="webclip-logo"></mat-icon>
+        </div>
+        <div class="text">
+            <p class="info">To install this app, tap <mat-icon [svgIcon]="browserSettingsIcon" class="primary"></mat-icon> then select “Add to Home screen”</p>
+        </div>
+    </div>
+</div>

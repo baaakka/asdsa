@@ -1,0 +1,133 @@
+<header class="header" [class.p-5]="!headerOptions.default">
+  <div class="vectors-bg mobile">
+    <mat-icon class="block-1 header-bg" svgIcon="header-bg-1"></mat-icon>
+    <mat-icon class="block-2 header-bg" svgIcon="header-bg-2"></mat-icon>
+  </div>
+
+  <div class="wrapper-mobile" *ngIf="!headerOptions.default && isMobileContent">
+    <ng-container *ngIf="!isSearchOpened; else searchTemplate">
+      <div class="back-button pointer clickable-icon" (click)="back()">
+        <mat-icon svgIcon="back">arrow-left</mat-icon>
+      </div>
+      <div class="user-detail" *ngIf="!headerOptions.isProfile">
+        <div class="info header-title" *ngIf="headerOptions.title">
+          <p class="user-name">
+            <mat-icon class="reward-icon" *ngIf="headerOptions.titleIcon" [svgIcon]="headerOptions.titleIcon">
+            </mat-icon>
+            {{ headerOptions.title| pageTitle }}
+          </p>
+          <p class="sugar" *ngIf="headerOptions.showSugar">{{(authService.userProfile | async)?.sugar | number}} Sugar
+          </p>
+        </div>
+      </div>
+
+      <div class="search-section">
+        <div class="icon-section clickable-icon" (click)="switchSearchState()" *ngIf="headerOptions.hasSearch">
+          <mat-icon svgIcon="search"></mat-icon>
+        </div>
+        <div class="icon-section clickable-icon" (click)="addWallet()" *ngIf="headerOptions.isWallet">
+          <mat-icon svgIcon="circle-plus"></mat-icon>
+        </div>
+        <div class="icon-section" *ngIf="headerOptions.isProfile">
+          <div style="margin-top: 1em;" class="pointer">
+            <div class="clickable-icon" *ngIf="themeService.active.name === 'light-theme'">
+              <mat-icon class="icons-theme" (click)="changeTheme(true)" svgIcon="moon">
+              </mat-icon>
+            </div>
+            <div class="clickable-icon" *ngIf="themeService.active.name === 'dark-theme'">
+              <mat-icon class="icons-theme" (click)="changeTheme(false)" svgIcon="sun">
+              </mat-icon>
+            </div>
+            <div class="clickable-icon" *ngIf="!settings">
+              <mat-icon routerLink="profile/settings" svgIcon="edit"></mat-icon>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="wrapper-desktop" *ngIf="!isMobileContent || (isMobileContent && headerOptions.default)">
+    <div class="logo" routerLink="/home">
+      <img *ngIf="(authService.userProfile | async)" style="width: 120px; height:120px;" loading="lazy" src="../../../assets/imgs/logo.png" alt="" />
+      <ngx-skeleton-loader count='1' *ngIf="(authService.userProfile | async) === null"
+        [theme]="{width: '185px', height: '81px','background-color': activeTheme.properties['--skeleton-color'], margin: '0'}">
+      </ngx-skeleton-loader>
+    </div>
+    <nav class="navigation">
+      <ul>
+        <li>
+          <a class="link" routerLink="/confectionery" routerLinkActive="active">{{language === 'ua' ? 'Ринок' : 'Marketplace'}}</a>
+        </li>
+        <li>
+          <a class="link" routerLink="/rewards" routerLinkActive="active" id="reward-link">{{language === 'ua' ? 'Нагороди' : 'Rewards'}}</a>
+        </li>
+        <li>
+          <a class="link" routerLink="/wallet" routerLinkActive="active">{{language === 'ua' ? 'Гаманець' : 'Wallet'}}</a>
+        </li>
+      </ul>
+    </nav>
+    <mat-form-field>
+      <mat-label>{{language === 'ua' ? 'Мова' : 'Language'}}</mat-label>
+      <mat-select [formControl]="myControl" (selectionChange)="onDropdownChange($event)">
+        <mat-option *ngFor="let option of dropdownOptions" [value]="option.value">
+          {{ option.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="user-detail" *ngIf="(authService.userProfile | async); else skeletonDesktopTemplate">
+
+      <div class="info" routerLink="/profile">
+        <p class="user-name">{{(authService.userProfile | async)?.username}}</p>
+        <p class="sugar">{{(authService.userProfile | async)?.sugar | number}}</p>
+      </div>
+      <div class="avatar" routerLink="/profile">
+        <img [attr.src]="profileImg" alt="" />
+      </div>
+    </div>
+    <div class="icons">
+      <mat-icon class="pointer clickable-icon router-icon" routerLink="/confectionery" svgIcon="confectionery">
+      </mat-icon>
+      <mat-icon class="pointer clickable-icon router-icon" routerLink="/rewards" svgIcon="reward"></mat-icon>
+      <mat-icon class="pointer clickable-icon router-icon" routerLink="/wallet" svgIcon="wallet"></mat-icon>
+    </div>
+  </div>
+</header>
+
+<ng-template #searchTemplate>
+  <div class="search-wrapper">
+    <div class="search">
+      <cake-input [hasCloseCircle]="true" (inputClose)="switchSearchState()" [control]="receiveFormControl()">
+        <mat-icon svgIcon="search-outline"></mat-icon>
+      </cake-input>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #skeletonDesktopTemplate>
+  <div class="user-detail">
+    <mat-icon *ngIf="themeService.active.name === 'light-theme'" class="icons-theme" svgIcon="moon"
+      (click)="changeTheme(true)">
+    </mat-icon>
+    <mat-icon *ngIf="themeService.active.name === 'dark-theme'" class="icons-theme" svgIcon="sun"
+      (click)="changeTheme(false)">
+    </mat-icon>
+    <div class="skeleton-info">
+      <ngx-skeleton-loader count='1'
+        [theme]="{width: '89px', height: '19px','background-color': activeTheme.properties['--skeleton-color'], margin: '0'}">
+      </ngx-skeleton-loader>
+      <ngx-skeleton-loader count='1'
+        [theme]="{width: '89px', height: '19px','background-color': activeTheme.properties['--skeleton-color'], margin: '0'}">
+      </ngx-skeleton-loader>
+    </div>
+    <div class="avatar">
+      <ngx-skeleton-loader appearance='circle' [theme]="{
+        width: '40px',
+        height: '40px',
+        'background-color': activeTheme.properties['--skeleton-color']
+       }"></ngx-skeleton-loader>
+    </div>
+  </div>
+</ng-template>

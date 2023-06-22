@@ -1,0 +1,14 @@
+[
+  "constructor()",
+  "event Bought(address indexed,uint256)",
+  "event OwnershipTransferred(address indexed,address indexed)",
+  "event Sold(address indexed,uint256)",
+  "function buy() payable",
+  "function getBalance() view returns (uint256)",
+  "function owner() view returns (address)",
+  "function renounceOwnership()",
+  "function sell(uint256)",
+  "function token() view returns (address)",
+  "function transferOwnership(address)",
+  "function withdrawMoneyTo(address)"
+]

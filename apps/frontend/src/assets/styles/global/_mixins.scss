@@ -1,0 +1,123 @@
+@mixin btn-hover($textColor, $bg, $borderColor) {
+  &:hover {
+    color: $textColor;
+    background: $bg;
+    text-decoration: none;
+    border: 2px solid $borderColor;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+  }
+}
+
+@mixin btn-disabled($textColor, $bg, $borderColor) {
+  &:disabled {
+    color: $textColor;
+    background: $bg;
+    border: 2px solid $borderColor;
+    cursor: not-allowed;
+    border-image-slice: 1;
+  }
+}
+
+@mixin btn-default($textColor, $bg, $borderColor) {
+  color: $textColor;
+  background: $bg;
+  border: 2px solid $borderColor;
+  border-image-slice: 1;
+}
+
+@mixin gradient-linear-bg($deg, $leftColor, $rightColor) {
+  background: linear-gradient($deg, $leftColor, $rightColor);
+}
+
+@mixin border-gradient-linear($deg, $leftColor, $rightColor) {
+  border-image:  linear-gradient($deg, $leftColor, $rightColor);
+}
+
+@mixin gradient-linear-border(
+  $deg,
+  $leftColor,
+  $rightColor,
+  $borderWidth,
+  $borderRadius
+) {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: $borderRadius;
+    padding: $borderWidth;
+    background: linear-gradient($deg, $leftColor, $rightColor);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+      /* [1] */ linear-gradient(#fff 0 0); /* [2] */
+    -webkit-mask-composite: xor; /* [3] для підтримки браузерів */
+    mask-composite: exclude; /* [3] */
+    pointer-events: none;
+  }
+}
+
+@mixin gradient-linear-text($deg, $leftColor, $rightColor) {
+  background-color: $leftColor;
+  background-image: linear-gradient($deg, $leftColor, $rightColor);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin gradient-linear-events-live($deg, $leftColor, $rightColor) {
+  background-color: $leftColor;
+  background-image: linear-gradient($deg, $leftColor, $rightColor);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin gradient-liner-span-text($deg, $leftColor, $rightColor){
+  background: -webkit-linear-gradient( var(--deg-gradient-3),
+  var(--color-gradient-left-3),
+  var(--color-gradient-right-3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin error-message {
+  display: block;
+  font-size: 10px;
+  font-family: 'Gilroy-500';
+  padding-left: 20px;
+  margin-top: 5px;
+  @include gradient-linear-text(
+    var(--deg-gradient-4),
+    var(--color-gradient-left-4),
+    var(--color-gradient-right-4)
+  );
+}
+
+@mixin Gilroy-400-16-fonts-2 {
+  font-family: 'Gilroy-400';
+  font-size: 16px;
+  color: var(--color-fonts-2);
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@mixin Gilroy-500-30-fonts-2 {
+  font-family: 'Gilroy-500';
+  font-size: 30px;
+  color: var(--color-fonts-2);
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@mixin Gilroy-600-14-fonts-2 {
+  font-family: 'Gilroy-600';
+  font-size: 14px;
+  color: var(--color-fonts-2);
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

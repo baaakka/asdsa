@@ -1,0 +1,448 @@
+<div class="content">
+	<div class="desktop-container">
+		<div class="title">
+			<h1>
+				{{language === 'ua' ? 'Фото' : 'Images'}}
+			</h1>
+		</div>
+
+		<div class="header-of-table">
+			<div class="header-flex max-content">
+				<div class="tabs" *ngIf="page === mainListComponentsEnum.Rewards">
+					<a routerLink="/rewards/SLICE" routerLinkActive="active">{{language === 'ua' ? 'Фото' : 'Images'}}</a>
+				</div>
+
+				<div class="last-content">
+					<div class="sort-block">
+						<h3>{{language === 'ua' ? 'Сортувати по' : 'Sort by'}}</h3>
+						<div class="sort">
+							<cake-drop-down
+								[placeholder]="language === 'ua' ? 'Виберіть' : 'Select'"
+								[options]="page === mainListComponentsEnum.Grab ? kolSortOptions : rewardsSortOptions"
+								(chooseOption)="sort($event)"
+							>
+							</cake-drop-down>
+						</div>
+					</div>
+
+					<div class="search-block">
+						<cake-input id="search-input" 
+						[placeholder]="language === 'ua' ? 'Виберіть' : 'Select'" [control]="searchControl">
+							<mat-icon svgIcon="search-outline"></mat-icon>
+						</cake-input>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="list-block max-content" *ngIf="hasMatches; else notFound">
+			<div class="row header">
+				<div class="col user">
+					{{ language === 'ua' ? "Ім'я " : 'Name' }}
+				</div>
+				<div class="col rarity" *ngIf="page === mainListComponentsEnum.Rewards">
+					{{ language === 'ua' ? "Рідкість" : 'Rarity' }}
+					
+				</div>
+				<div class="col category" *ngIf="page === mainListComponentsEnum.Rewards">
+					{{ language === 'ua' ? "Категорія" : 'Category' }}
+				</div>
+				<div class="col latest-price" *ngIf="page === mainListComponentsEnum.Rewards">
+
+					{{ language === 'ua' ? "Ціна" : 'Price' }}
+					
+				</div>
+				
+				<div
+					class="col"
+					[ngClass]="page === mainListComponentsEnum.Grab ? 'follow' : 'confectionary'"
+					*ngIf="notAllowedTabs([tabsFromListEnum.Users])"
+				>
+				
+				{{ language === 'ua' ? "Наявність" : 'Confectionary' }}
+				</div>
+			</div>
+			<ng-container *ngIf="page === mainListComponentsEnum.Grab">
+				<ng-container *ngIf="!waitingLoading; else skeletonKolDesktop">
+					<div class="row list animation-hidden-skeleton" *ngFor="let item of kolList; let index = index">
+						<div class="col user" (click)="modalsService.openKolPopup(item)">
+							<div class="avatar">
+								<img loading="lazy" [attr.src]="item.user.avatar || profileImg" [attr.alt]="item.user.username" />
+							</div>
+							<h2>
+								{{ item.user.username }}
+							</h2>
+						</div>
+						<div class="col rewards">
+							<div class="slices">
+								<img
+									loading="lazy"
+									alt="{{ reward.name }}"
+									[attr.src]="reward.smallImage || reward.image"
+									*ngFor="let reward of item.rewards | slice: 0:3; let i = index"
+								/>
+							</div>
+							<div class="count">{{ item.rewards.length > 3 ? "+" : "" }}{{ item.rewards.length > 3 ? item.rewards.length - 3 : "" }}</div>
+						</div>
+						<div class="col cakeboxes">
+							<div class="cakebox" *ngFor="let cakebox of item.cakeboxes | slice: 0:3; let i = index">
+								<cake-cakebox [isSmall]="true" [cakebox]="cakebox"></cake-cakebox>
+							</div>
+							<div class="count">
+								{{ item.cakeboxes.length > 3 ? "+" : "" }}{{ item.cakeboxes.length > 3 ? item.cakeboxes.length - 3 : "" }}
+							</div>
+						</div>
+						<div class="col activity">
+							<img src="{{activityImg(index)}}" class="activity-img" />
+						</div>
+						<div class="col rank">
+							<img src="{{rankImg(index)}}" class="rank-img" />
+						</div>
+						<div class="col hype">
+							<img src="{{hypeImg(index)}}" class="hype-img" />
+						</div>
+
+						<div
+							class="col followers rankExample"
+							*ngIf="notAllowedTabs([tabsFromListEnum.Users])"
+							[innerHTML]="MOCK_FOLLOWERS[index] | followersCount"
+						>
+							<!-- MOCK FOR MVP1 -->
+							<!-- <div class="col followers rankExample" *ngIf="notAllowedTabs([tabsFromListEnum.Users])" [innerHTML]="item.followers | followersCount"> -->
+						</div>
+						<div class="col platforms" *ngIf="notAllowedTabs([tabsFromListEnum.Users])">
+							<a class="platform pointer" *ngFor="let platform of item.platforms | slice: 0:5; let i = index" target="_blank" [attr.href]="platform.link">
+								<img loading="lazy" src="assets/icons/popular-fire.png" alt="popular" class="popular" *ngIf="platform.isPopular" />
+								<img loading="lazy" src="assets/platforms/{{ platform.platform }}-small.svg" alt="" class="platform-icon" />
+							</a>
+							<div class="count">
+								{{ item.platforms.length > 5 ? "+" : "" }}{{ item.platforms.length > 5 ? item.platforms.length - 5 : "" }}
+							</div>
+						</div>
+						<div class="col follow" *ngIf="notAllowedTabs([tabsFromListEnum.Users])">
+							<button
+								class="button primary"
+								*ngIf="!item.user.isFollow && userId !== item.user.id"
+								(click)="follow(item.user.id)"
+								[disabled]="userId === item.user.id"
+							>
+								Follow
+							</button>
+							<button
+								class="button secondary unfollow with-icon"
+								*ngIf="item.user.isFollow && userId !== item.user.id"
+								(click)="unfollow(item.user.id)"
+							>
+								<span class="isFollow">Following</span>
+								<span class="isUnfollow">Unfollow</span>
+								<span class="icon"></span>
+							</button>
+						</div>
+					</div>
+				</ng-container>
+			</ng-container>
+			<ng-container *ngIf="page === mainListComponentsEnum.Rewards">
+				<ng-container *ngIf="!waitingLoading; else skeletonRewardsDesktop">
+					<div class="row list animation-hidden-skeleton" *ngFor="let item of rewardList">
+						<div class="col user">
+							<div class="avatar">
+								<img loading="lazy" [attr.src]="item.image" [attr.alt]="item.name" />
+							</div>
+							<h2>
+								{{ item.name }}
+							</h2>
+						</div>
+						<div class="col rarity">
+							{{ item.rarity | titlecase }}
+						</div>
+						<div class="col category">
+							{{ item.category | titlecase }}
+						</div>
+						<div class="col latest-price">
+							<span [ngClass]="getCostColor(item.cost)">{{ item.cost | number }}</span>
+						</div>
+						<div class="col confectionary">
+							<button class="button primary" *ngIf="item.isConfectionary" (click)="modalsService.openRewardPopup(item.id)">
+								{{ language === 'ua' ? "У наявності" : '
+								View in Marketplace' }}
+							</button>
+							<button class="button tertiary" disabled *ngIf="!item.isConfectionary">
+								{{ language === 'ua' ? "Немає у наявності" : 'Not in Marketplace' }}</button>
+						</div>
+					</div>
+				</ng-container>
+			</ng-container>
+		</div>
+
+		<cake-pagination
+			[(page)]="currentPage"
+			[pageSize]="pageSize"
+			[count]="totalCount"
+			(pageChange)="getData()"
+			class="max-content"
+		></cake-pagination>
+
+	</div>
+
+	<div class="mobile-container">
+    <ng-container *ngIf="hasMatches; else notFound">
+      <div class="header">
+        <span
+          >Total: <span class="total-count">{{ totalCount | number }}</span></span
+        >
+        <div class="sort-block">
+          <h3>Sort by</h3>
+          <div class="sort">
+            <cake-drop-down placeholder="Select" [options]="sortOptions" (chooseOption)="sort($event)"> </cake-drop-down>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="!waitingLoading; else skeletonMobile">
+        <ng-container *ngIf="page === mainListComponentsEnum.Rewards">
+          <div class="rewards-list animation-hidden-skeleton">
+            <div class="reward-container" *ngFor="let reward of rewardList">
+              <div class="reward-main-info">
+                <div class="reward-image">
+                  <img loading="lazy" class="small-image" [attr.src]="reward.image" [attr.alt]="reward.name" />
+                </div>
+                <div class="reward-detail">
+                  <div class="reward-info">
+                    <p class="reward-info-type">{{ reward.type.toLowerCase().replace("cake", "cak3") | titlecase }}</p>
+                    <p class="reward-info-name">{{ reward.name }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="reward-details-btn pointer" [cakeRewardsOptions]="reward">
+                <mat-icon svgIcon="details"></mat-icon>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="page === mainListComponentsEnum.Grab">
+          <div class="grab-list animation-hidden-skeleton">
+            <div class="grab-container" *ngFor="let kol of kolList">
+              <div class="grab-main-info" (click)="modalsService.openKolPopup(kol)">
+                <div class="grab-image">
+                  <img loading="lazy" class="small-image" [attr.src]="kol.user.avatar || profileImg" [attr.alt]="kol.user.username" />
+                </div>
+                <div class="grab-name">
+                  <span>{{ kol.user.username }}</span>
+                </div>
+              </div>
+              <div class="subscribe-btn" *ngIf="notAllowedTabs([tabsFromListEnum.Users]) && userId !== kol.user.id">
+                <button class="button primary" *ngIf="!kol.user.isFollow" (click)="follow(kol.user.id)" [disabled]="userId === kol.user.id">
+                  Follow
+                </button>
+                <button
+                  class="button secondary unfollow with-icon"
+                  *ngIf="kol.user.isFollow"
+                  (click)="unfollow(kol.user.id)"
+                  [disabled]="userId === kol.user.id"
+                >
+                  <span class="isFollow">Following</span>
+                  <span class="isUnfollow">Unfollow</span>
+                  <span class="icon"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+      <cake-pagination [(page)]="currentPage" [pageSize]="pageSize" [count]="totalCount" (pageChange)="getData()"></cake-pagination>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="not-found-matches-block">
+    <h1>
+      Sorry, we couldn’t find any matches for <span>{{getQueryObj.search}}</span>
+    </h1>
+  </div>
+</ng-template>
+<ng-template #skeletonKolDesktop>
+	<div class="row list" *ngFor="let item of getMockArray(5)">
+		<div class="col user">
+			<ng-container *ngTemplateOutlet="avatarSkeleton"></ng-container>
+		</div>
+		<div class="col rewards">
+			<ngx-skeleton-loader
+				count="3"
+				appearance="circle"
+				animation="progress-dark"
+				[theme]="{
+					'background-color': activeTheme.properties['--skeleton-color'],
+					height: '38px',
+					width: '38px',
+					'margin-left': '-15px'
+				}"
+			>
+			</ngx-skeleton-loader>
+		</div>
+		<div class="col cakeboxes">
+			<ngx-skeleton-loader
+				count="3"
+				appearance="line"
+				animation="progress-dark"
+				[theme]="{
+					'background-color': activeTheme.properties['--skeleton-color'],
+					height: '38px',
+					width: '38px',
+					'margin-left': '-15px',
+					'border-radius': '2px',
+					transform: 'rotate(45deg)'
+				}"
+			>
+			</ngx-skeleton-loader>
+		</div>
+		<div class="col followers">
+			<ng-container *ngTemplateOutlet="textSkeleton"></ng-container>
+		</div>
+		<div class="col platforms">
+			<ngx-skeleton-loader
+				count="5"
+				appearance="line"
+				animation="progress-dark"
+				[theme]="{
+					'background-color': activeTheme.properties['--skeleton-color'],
+					height: '40px',
+					width: '40px',
+					'border-radius': '2px',
+					'margin-left': '8px'
+				}"
+			>
+			</ngx-skeleton-loader>
+		</div>
+		<div class="col follow">
+			<ng-container *ngTemplateOutlet="btnSkeleton"></ng-container>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #skeletonRewardsDesktop>
+	<div class="row list" *ngFor="let item of getMockArray(5)">
+		<div class="col user">
+			<ng-container *ngTemplateOutlet="avatarSkeleton"></ng-container>
+		</div>
+		<div class="col rarity">
+			<ng-container *ngTemplateOutlet="textSkeleton"></ng-container>
+		</div>
+		<div class="col category">
+			<ng-container *ngTemplateOutlet="textSkeleton"></ng-container>
+		</div>
+		<div class="col latest-price rankExample">
+			<ng-container *ngTemplateOutlet="textSkeleton"></ng-container>
+		</div>
+		<div class="col confectionary">
+			<ng-container *ngTemplateOutlet="btnSkeleton"></ng-container>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #avatarSkeleton>
+	<ngx-skeleton-loader
+		count="1"
+		appearance="circle"
+		animation="progress-dark"
+		[theme]="{
+			'background-color': activeTheme.properties['--skeleton-color'],
+			height: '64px',
+			width: '64px'
+		}"
+	>
+	</ngx-skeleton-loader>
+	<ngx-skeleton-loader
+		count="1"
+		appearance="line"
+		animation="progress-dark"
+		[theme]="{
+			'background-color': activeTheme.properties['--skeleton-color'],
+			height: '17px',
+			width: '100px',
+			'border-radius': '2px',
+			margin: '0 0 0 20px'
+		}"
+	>
+	</ngx-skeleton-loader>
+</ng-template>
+
+<ng-template #textSkeleton>
+	<ngx-skeleton-loader
+		count="1"
+		appearance="line"
+		animation="progress-dark"
+		[theme]="{
+			'background-color': activeTheme.properties['--skeleton-color'],
+			height: '22px',
+			width: '50px',
+			'border-radius': '2px'
+		}"
+	>
+	</ngx-skeleton-loader>
+</ng-template>
+<ng-template #btnSkeleton>
+	<ngx-skeleton-loader
+		count="1"
+		appearance="line"
+		animation="progress-dark"
+		[theme]="{
+			'background-color': activeTheme.properties['--skeleton-color'],
+			height: '40px',
+			width: '120px',
+			'border-radius': '16px',
+			'margin-left': '8px'
+		}"
+	>
+	</ngx-skeleton-loader>
+</ng-template>
+
+<ng-template #skeletonMobile>
+	<div class="grab-list">
+		<div class="grab-container" *ngFor="let item of getMockArray(5)">
+			<div class="grab-main-info">
+				<div class="grab-image">
+					<ngx-skeleton-loader
+						count="1"
+						appearance="circle"
+						animation="progress-dark"
+						[theme]="{
+							'background-color': activeTheme.properties['--skeleton-color'],
+							height: '32px',
+							width: '32px'
+						}"
+					>
+					</ngx-skeleton-loader>
+				</div>
+				<div class="grab-name">
+					<ngx-skeleton-loader
+						count="1"
+						appearance="line"
+						animation="progress-dark"
+						[theme]="{
+							'background-color': activeTheme.properties['--skeleton-color'],
+							height: '14px',
+							width: '90px',
+							margin: 0,
+							'margin-top': '12px'
+						}"
+					>
+					</ngx-skeleton-loader>
+				</div>
+			</div>
+			<div class="subscribe-btn">
+				<ngx-skeleton-loader
+					count="1"
+					appearance="line"
+					animation="progress-dark"
+					[theme]="{
+						'background-color': activeTheme.properties['--skeleton-color'],
+						height: '40px',
+						width: '100px',
+						'border-radius': '16px'
+					}"
+				>
+				</ngx-skeleton-loader>
+			</div>
+		</div>
+	</div>
+</ng-template>

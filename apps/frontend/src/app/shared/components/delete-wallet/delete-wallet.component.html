@@ -1,0 +1,34 @@
+<div class="container">
+	<div class="close pointer" (click)="dialogRef.close()">
+		<mat-icon [svgIcon]="closeCircle"></mat-icon>
+	</div>
+	<div class="content">
+		<h1>
+			{{ language === "ua" ? "Ви бажаєте видалити MetaMask?" : "Do you want to delete MetaMask?" }}
+		</h1>
+		<p>{{ data.address }}</p>
+		<h3>
+			{{
+				language === "ua"
+					? "
+            Якщо ви зміните свою думку, ви зможете додати його знову"
+					: "
+            If you change your mind, you can add it back again"
+			}}
+		</h3>
+	</div>
+	<div class="buttons">
+		<div class="confirm-btn">
+			<button class="button error" (click)="dialogRef.close(data.address)">
+				{{ language === "ua" ? "
+                Так" : "
+                Yes" }}
+			</button>
+		</div>
+		<div class="cancel-btn">
+			<button class="button tertiary" (click)="dialogRef.close(null)">{{ language === "ua" ? "
+                Відмінити" : "
+                Cancel" }}</button>
+		</div>
+	</div>
+</div>

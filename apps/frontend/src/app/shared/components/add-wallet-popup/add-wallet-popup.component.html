@@ -1,0 +1,22 @@
+<div class="container">
+	<div class="close pointer" (click)="dialogRef.close()">
+		<mat-icon [svgIcon]="closeCircle"></mat-icon>
+	</div>
+	<div class="content">
+		<h1>{{ language === 'ua' ? "Додати гаманець" : 'Add wallet' }}</h1>
+		<div class="wallets">
+			<div class="wallet pointer" (click)="setSelected(1)" [class.active]="(selected | async) === 1">
+				<img loading="lazy" src="/assets/wallets/logos_metamask-icon.png" alt="" />
+				<h3>MetaMask</h3>
+			</div>
+		</div>
+		<div class="continue-btn">
+			<button class="button primary" *ngIf="!allowance && !isCrypto" [disabled]="!selected || loading" (click)="continue()">
+				{{ language === 'ua' ? "Продовжити" : 'Continue' }}
+				
+			</button>
+			<button class="button primary" *ngIf="allowance && isCrypto" [disabled]="!selected || loading" (click)="approve()">
+				{{ language === 'ua' ? "Підтвердити" : 'Approve' }}</button>
+		</div>
+	</div>
+</div>

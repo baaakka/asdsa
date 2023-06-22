@@ -1,0 +1,12 @@
+<div class="wrapper" [style.top]="top + 'px'">
+    <div class="container">
+        <div class="arrow"></div>
+        <div class="content">
+            <ng-container *ngFor="let option of OPTIONS">
+                <div class="item pointer" (click)="onMenuOptionClick(option)">
+                    <span>{{ option }}</span>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

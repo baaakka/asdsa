@@ -1,0 +1,11 @@
+<div class="sparkles">
+    <div>
+        <cake-app-header *ngIf="!hideDefaultHeader"></cake-app-header>
+        <router-outlet></router-outlet>
+    </div>
+
+    <div *ngIf="isHidden" class="webclip-wrapper">
+        <cake-webclip [visible]="isPopupVisible" (closePopupEmitter)="handlePopupClose($event)"></cake-webclip>
+    </div>
+    <cake-app-footer *ngIf="!hideDefaultFooter" class="cake-footer"></cake-app-footer>    
+</div>

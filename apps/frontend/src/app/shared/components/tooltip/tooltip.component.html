@@ -1,0 +1,27 @@
+<div class="tooltip" [style.left]="left + 'px'" [style.top]="top + 'px'">
+  <div class="wrapper">
+    <div class="close-btn">
+      <!-- Close icon svg -->
+      <mat-icon [svgIcon]="'close-tooltip'" (click)="destroy()"></mat-icon>
+    </div>
+    <div
+      class="content"
+      style="
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin: -20px -10px 0 0;
+        word-break: break-word;
+      "
+    >
+      <span
+        class="tooltip-text"
+      >
+        {{ tooltip }}
+      </span>
+    </div>
+  </div>
+</div>

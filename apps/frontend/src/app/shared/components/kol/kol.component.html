@@ -1,0 +1,112 @@
+<div class="slice-container animation-hidden-skeleton" *ngIf="kol; else skeleton">
+  <div class="close pointer clickable-icon" (click)="dialogRef.close()">
+    <mat-icon svgIcon="close-icon"></mat-icon>
+  </div>
+  <div class="avatar">
+    <img loading="lazy" [attr.src]="kol.user.avatar || profileImg" alt="" />
+  </div>
+  <div class="info">
+    <h1>{{ kol.user.username }}</h1>
+    <h3>KOL</h3>
+  </div>
+  <div class="rewards">
+    <div class="reward" *ngFor="let reward of getRewards" (click)="modalsService.openRewardPopup(reward.id)">
+      <img loading="lazy" src="{{ reward.smallImage }}" alt="" />
+      <h3 class="type">{{ reward.type.toLowerCase().replace('cake', 'cak3') | titlecase }}</h3>
+      <p class="name">{{ reward.name }}</p>
+      <h2 class="cost">{{ reward.cost | number }}</h2>
+      <h3 class="sugar">Sugar</h3>
+    </div>
+  </div>
+
+  <div class="pagination">
+    <cake-pagination [(page)]="page" [pageSize]="pageSize" [count]="totalCount" (pageChange)="getUser()"></cake-pagination>
+  </div>
+</div>
+<ng-template #skeleton>
+  <div class="slice-container">
+    <div class="close pointer">
+      <mat-icon svgIcon="close-icon"></mat-icon>
+    </div>
+    <div class="avatar">
+      <ngx-skeleton-loader
+        count="1"
+        appearance="circle"
+        animation="progress-dark"
+        [theme]="{
+          'background-color': activeTheme.properties['--skeleton-color'],
+          height: '104px',
+          width: '104px',
+         'margin-left': '7.5px'
+        }"
+      >
+      </ngx-skeleton-loader>
+    </div>
+    <div class="info">
+      <ngx-skeleton-loader
+        count="1"
+        appearance="line"
+        animation="progress-dark"
+        [theme]="{
+          'background-color': activeTheme.properties['--skeleton-color'],
+          height: '64px',
+          width: '200px',
+          'margin-left': '50%',
+          'margin-top': '10px',
+          transform: 'translateX(-50%)'
+        }"
+      >
+      </ngx-skeleton-loader>
+      <h3>KOL</h3>
+    </div>
+    <div class="rewards">
+      <div class="reward" *ngFor="let item of getMockArray(9)">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="circle"
+          animation="progress-dark"
+          [theme]="{
+            'background-color': activeTheme.properties['--skeleton-color'],
+            height: '72px',
+            width: '72px'
+          }"
+        >
+        </ngx-skeleton-loader>
+        <br>
+        <ng-container [ngTemplateOutlet]="skeletonText"></ng-container>
+        <br>
+        <ng-container [ngTemplateOutlet]="skeletonText"></ng-container>
+        <br>
+        <ng-container [ngTemplateOutlet]="skeletonTextBig"></ng-container>
+        <h3 class="sugar">Sugar</h3>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #skeletonText>
+    <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          animation="progress-dark"
+          [theme]="{
+            'background-color': activeTheme.properties['--skeleton-color'],
+            height: '18px',
+            width: '50px'
+          }"
+        >
+        </ngx-skeleton-loader>
+</ng-template>
+<ng-template #skeletonTextBig>
+    <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          animation="progress-dark"
+          [theme]="{
+            'background-color': activeTheme.properties['--skeleton-color'],
+            height: '30px',
+            width: '90px'
+          }"
+        >
+        </ngx-skeleton-loader>
+</ng-template>

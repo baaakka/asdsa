@@ -1,0 +1,220 @@
+
+.cakebox-container {
+    &.big-container {
+
+        .box {
+            margin: auto;
+            transform: translateY(-5%);
+            width: 250px;
+            height: 250px;
+            position: relative;
+
+            .confetti {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                zoom: 0.75;
+            }
+
+            .slices {
+
+                img {    
+                    display: none;
+                    border: 2px solid rgba(0, 0, 0, 0.2);
+                    border-radius: 13.1674px;
+
+                    &:nth-of-type(1) {
+                        display: block;
+                        left: 4%;
+                        top: 22%;
+                        width: 98px;
+                        height: 98px;
+                        transform: rotate(-15deg);
+                    }
+                    &:nth-of-type(2) {
+                        display: block;
+                        left: 55%;
+                        top: 22%;
+                        width: 79px;
+                        height: 79px;
+                        transform: rotate(15deg);
+                    }
+                    &:nth-of-type(3) {
+                        display: block;
+                        left: 44%;
+                        top: 50%;
+                        width: 60px;
+                        height: 60px;
+                        transform: rotate(5deg);
+                    }
+                    &:nth-of-type(4) {
+                        display: block;
+                        left: 25%;
+                        top: 10%;
+                        width: 14px;
+                        height: 14px;
+                        transform: rotate(-26deg);
+                        border-radius: 5px;
+                        opacity: .6;
+                    }
+                    &:nth-of-type(11) {
+                        display: block;
+                        left: -40%;
+                        top: 20%;
+                        width: 26px;
+                        border-radius: 5px;
+                        height: 26px;
+                        transform: rotate(-18deg);
+                        opacity: 0.6;
+                    }
+                    &:nth-of-type(10) {
+                        display: block;
+                        left: 0%;
+                        top: 0%;
+                        width: 11px;
+                        border-radius: 5px;
+                        height: 11px;
+                        transform: rotate(-60deg);
+                        opacity: .6;
+                    }
+                    &:nth-of-type(7) {
+                        display: block;
+                        left: -15%;
+                        top: 50%;
+                        width: 10px;
+                        border-radius: 5px;
+                        height: 10px;
+                        transform: rotate(-5deg);
+                        opacity: .6;
+                    }
+                    &:nth-of-type(8) {
+                        display: block;
+                        left: 0%;
+                        top: 70%;
+                        width: 12px;
+                        border-radius: 5px;
+                        height: 12px;
+                        transform: rotate(-60deg);
+                        opacity: .6;
+                    }
+                    &:nth-of-type(9) {
+                        display: block;
+                        left: 90%;
+                        top: 15%;
+                        width: 16px;
+                        border-radius: 5px;
+                        height: 16px;
+                        transform: rotate(18deg);
+                        opacity: .6;
+                    }
+                    &:nth-of-type(6) {
+                        display: block;
+                        left: 110%;
+                        top: 21%;
+                        width: 14px;
+                        border-radius: 5px;
+                        height: 14px;
+                        transform: rotate(-30deg);
+                        opacity: .6;
+                    }
+                    &:nth-of-type(5) {
+                        display: block;
+                        left: 90%;
+                        top: 70%;
+                        width: 16px;
+                        border-radius: 5px;
+                        height: 16px;
+                        transform: rotate(18deg);
+                        opacity: .6;
+                    }
+                }
+            }
+        }
+    }
+
+    &.small-container {
+        width: fit-content;
+        height: fit-content;
+        background-image: none !important;
+
+        .box {
+            width: 37px;
+            height: 37px;
+
+            .slices {
+                img {    
+                    display: none;
+
+                    &:nth-of-type(1) {
+                        display: block;
+                        left: 10%;
+                        top: 10%;
+                        width: 15px;
+                        height: 15px;
+                        transform: rotate(-15deg);
+                    }
+                    &:nth-of-type(2) {
+                        display: block;
+                        left: 57%;
+                        top: 5%;
+                        width: 12px;
+                        height: 12px;
+                        transform: rotate(15deg);
+                    }
+                    &:nth-of-type(3) {
+                        display: block;
+                        left: 40%;
+                        top: 45%;
+                        width: 10px;
+                        height: 10px;
+                        transform: rotate(5deg);
+                    }
+                }
+            }
+        }
+    }
+    
+    .box {
+        position: relative;
+
+        .background-small-icon {
+            position: absolute;
+            overflow: hidden;
+            left: 17.3%;
+            top: 8.79%;
+            width: 65%;
+            height: 65%;
+            border-radius: 2px;
+            transform: rotate(45deg) skew(-8.5deg, -8.5deg) scale(1.01);
+            
+            img {
+                transform: rotate(-45deg) scale(1.5) translate(0%, -50%);
+                width: 22px;
+                height: 22px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+            }
+        }
+
+        mat-icon {
+            width: 100%;
+            height: 100%;
+        }
+
+        .slices {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            img {
+                border-radius: 2px;
+                object-fit: cover;
+                position: absolute;
+            }
+        }
+    }
+}

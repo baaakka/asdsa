@@ -1,0 +1,105 @@
+@import '../../../../assets/styles/global/mixins';
+
+.slice-container {
+  width: 610px;
+  height: fit-content;
+  position: relative;
+
+  @media (max-width: 1023px) {
+    padding-top: 50px;
+    height: 80vh;
+  }
+
+  .close {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    @media (max-width: 1023px) {
+      display: block;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    width: 100% !important;
+  }
+
+  .image {
+    width: 153px;
+    height: 153px;
+    position: relative;
+    margin: 23px auto auto;
+    @media (max-width: 1023px) {
+        margin-top: 195px;
+      }
+
+    .background {
+      position: absolute;
+      top: 13px;
+      left: 20px;
+      width: 153px;
+      height: 153px;
+      background: var(--bg-get-reward-color);
+      border-radius: 16px;
+      transform: rotate(5deg);
+      z-index: 1;
+    }
+
+    img {
+      z-index: 2;
+      top: 0;
+      left: 0;
+      position: absolute;
+      width: 153px;
+      height: 153px;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+
+    .cakebox {
+        position: absolute;
+        width: fit-content;
+        height: fit-content;
+        left: 50%;
+        top: 10%;
+        transform: translateX(-50%);
+        zoom: 0.6;
+      }
+  }
+
+  .text {
+    margin: 40px auto 32px;
+    max-width: 336px;
+    text-align: center;
+    font-family: 'Gilroy-400';
+    font-weight: 400;
+    text-align: center;
+    color: var(--color-fonts-2);
+
+    h1 {
+      font-size: 32px;
+      margin: 0;
+    }
+
+    h2 {
+      margin-top: 10px;
+      font-size: 16px;
+      margin-bottom: 0;
+    }
+  }
+
+  .confirm-btn {
+    width: 202px;
+    margin: auto;
+    padding-bottom: 16px;
+
+    @media (max-width: 1023px) {
+        width: 100%;
+      }
+
+    &:last-of-type {
+      padding-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+export const abi = [
+  'constructor(address)',
+  'event OwnershipTransferred(address indexed,address indexed)',
+  'event Stake(address indexed,uint256,uint256)',
+  'function halted() view returns (bool)',
+  'function owner() view returns (address)',
+  'function renounceOwnership()',
+  'function stake(uint256)',
+  'function transferOwnership(address)',
+];

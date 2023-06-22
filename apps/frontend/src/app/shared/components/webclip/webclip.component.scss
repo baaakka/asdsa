@@ -1,0 +1,132 @@
+@import "../../../../assets/styles/global/mixins";
+
+.wrapper {
+	&-popup {
+		z-index: 999;
+		height: calc(113px - 16px - 16px);
+		width: calc(100% - 16px - 16px - 24px - 24px);
+		margin: 0 16px;
+		border-radius: 16px;
+		position: relative;
+		padding: 16px 24px;
+
+		box-shadow: 0px 0px 26px var(--webclip-box-shadow-color);
+		@include border-gradient-linear(1px, solid, var(--webclip-border-color));
+
+		@include gradient-linear-bg(
+			var(--deg-gradient-webclip-banner),
+			var(--gradient-left-webclip-banner),
+			var(--gradient-right-webclip-banner)
+		);
+
+		.close {
+			position: absolute;
+			width: 24px;
+			height: 24px;
+			right: 8px;
+			top: 8px;
+			display: block;
+		}
+
+		.content {
+			display: flex;
+			align-items: center;
+
+			.logo {
+				display: inline-block;
+
+				.mat-icon {
+					height: 58px;
+					width: 58px;
+					font-size: 58px;
+				}
+
+				margin-right: 16px;
+			}
+
+			.text {
+				.info {
+					width: 190px;
+					font-family: "Gilroy-400";
+					font-style: normal;
+					font-size: 16px;
+					line-height: 27px;
+					color: var(--color-tooltip-text);
+					margin: 0;
+					padding: 0;
+
+					@media (max-width: 374px) {
+						width: 186px;
+						font-size: 13px;
+						line-height: 24px;
+					}
+
+					@media (min-width: 768px) {
+						width: 450px;
+					}
+				}
+			}
+		}
+	}
+
+	&-full {
+		height: calc(113px - 16px - 16px);
+		width: calc(100% - 24px - 24px);
+		margin: 0;
+		position: relative;
+		padding: 16px 24px;
+
+		box-shadow: 0px 0px 26px var(--webclip-box-shadow-color);
+		border: 1px solid var(--webclip-border-color);
+
+		@include gradient-linear-bg(
+			var(--deg-gradient-webclip-banner),
+			var(--gradient-left-webclip-full),
+			var(--gradient-right-webclip-full)
+		);
+
+		.close {
+			position: absolute;
+			width: 24px;
+			height: 24px;
+			right: 8px;
+			top: 8px;
+			display: block;
+		}
+
+		.content {
+			display: flex;
+			align-items: center;
+
+			.logo {
+				display: inline-block;
+
+				.mat-icon {
+					height: 58px;
+					width: 58px;
+					font-size: 58px;
+				}
+
+				margin-right: 16px;
+			}
+
+			.text {
+				.info {
+					width: 186px;
+					font-family: "Gilroy-400";
+					font-style: normal;
+					font-size: 16px;
+					line-height: 27px;
+					color: var(--color-tooltip-text);
+					margin: 0;
+					padding: 0;
+
+					@media (max-width: 321px) {
+						font-size: 13px;
+						line-height: 24px;
+					}
+				}
+			}
+		}
+	}
+}

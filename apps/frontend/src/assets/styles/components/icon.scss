@@ -1,0 +1,63 @@
+mat-icon {
+	cursor: pointer;
+
+	&.tertiary {
+		&:hover {
+			//TODO hover not working correctly
+			// ::ng-deep svg {
+			svg {
+				defs {
+					linearGradient {
+						stop {
+							&:first-of-type {
+								stop-color: var(--color-gradient-left-icon-hover);
+							}
+							&:last-of-type {
+								stop-color: var(--color-gradient-right-icon-hover);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		::ng-deep svg {
+			defs {
+				linearGradient {
+					stop {
+						&:first-of-type {
+							stop-color: var(--color-gradient-left-icon);
+						}
+						&:last-of-type {
+							stop-color: var(--color-gradient-right-icon);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&.primary {
+		svg {
+            path {
+                fill:  var(--color-tooltip-text);
+            }
+        }
+    }
+    &.header-bg {
+        ::ng-deep svg {
+            defs {
+                linearGradient {
+                    stop {
+                        &:first-of-type {
+                            stop-color: var(--header-color-gradient-left-1);
+                        }
+                        &:last-of-type {
+                            stop-color: var(--header-color-gradient-right-1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

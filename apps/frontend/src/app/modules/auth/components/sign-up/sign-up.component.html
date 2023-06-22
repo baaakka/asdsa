@@ -1,0 +1,105 @@
+<div class="flex-block" *ngIf="!isRegisterDone">
+  <div class="logo">
+    <img loading="lazy" src="../../../../../assets/imgs/logo.png" alt="logo" />
+  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()" *ngIf="form">
+    <div class="input-block">
+      <cake-input
+        [placeholder]="'Enter your first name'"
+        [control]="form.controls['firstName']"
+        [error]="
+          isError('firstName') &&
+          this.form.get('firstName')?.hasError('required')
+            ? 'This field is required'
+            : ''
+        "
+      ></cake-input>
+    </div>
+    <div class="input-block">
+      <cake-input
+        [placeholder]="'Enter your last name'"
+        [control]="form.controls['lastName']"
+        [error]="
+          isError('lastName') && this.form.get('lastName')?.hasError('required')
+            ? 'This field is required'
+            : ''
+        "
+      ></cake-input>
+    </div>
+    <div class="input-block">
+      <cake-input
+        [placeholder]="'Create username'"
+        [control]="form.controls['username']"
+        [error]="
+          isError('username') && this.form.get('username')?.hasError('required')
+            ? 'This field is required'
+            : ''
+        "
+      ></cake-input>
+    </div>
+    <div class="input-block">
+      <cake-input
+        [placeholder]="'Password'"
+        [hasEye]="true"
+        [defaultType]="'password'"
+        [control]="form.controls['password']"
+        [error]="getPasswordError()"
+      ></cake-input>
+    </div>
+    <div class="input-block">
+      <cake-input
+        [placeholder]="'Verify password'"
+        [hasEye]="true"
+        [defaultType]="'password'"
+        [control]="form.controls['verifyPassword']"
+        [error]="getVerifyPassError()"
+      ></cake-input>
+    </div>
+    <div class="input-block">
+      <cake-input
+        [placeholder]="'Enter email'"
+        [control]="form.controls['email']"
+        [error]="getEmailError()"
+      ></cake-input>
+    </div>
+    <!-- <div class="input-block">
+      <cake-input
+        [placeholder]="'Create recovery phrase'"
+        [control]="form.controls['recoveryPhase']"
+        [error]="
+          isError('recoveryPhase') && this.form.get('recoveryPhase')?.hasError('required')
+            ? 'This field is required'
+            : ''
+        "
+      ></cake-input>
+    </div> -->
+    <div class="sign-up-btn">
+      <button class="button primary">Sign up</button>
+    </div>
+  </form>
+  <div class="cancel-block">
+    <button class="button tertiary" routerLink="/auth/sign-in">Cancel</button>
+  </div>
+  <div class="have-account-block">
+    <div class="text">
+      <p>Already have an account?</p>
+    </div>
+    <div class="login-btn">
+      <button class="button tertiary" routerLink="/auth/sign-in">
+        Sign in
+      </button>
+    </div>
+  </div>
+  <footer>© 2022 Cak3</footer>
+</div>
+
+<cake-congratulations-screen
+  *ngIf="isRegisterDone"
+  title="Congratulations!"
+  titleImg="../../../assets/imgs/Party-popper.png"
+  mark="../../../assets/imgs/check-mark-button.png"
+  text="You have successfully registered"
+  [isNeedPlugin]="!environment.plugin"
+  [router]="!environment.plugin ? '/grab-a-slice' : '/home'"
+  btnText="Grab a slice!"
+></cake-congratulations-screen>

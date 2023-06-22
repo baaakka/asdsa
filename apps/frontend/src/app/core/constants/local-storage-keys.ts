@@ -1,0 +1,1 @@
+export const WEBCLIP_BANNER_CLOSED = 'banner_closed';

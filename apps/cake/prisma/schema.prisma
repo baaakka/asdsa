@@ -1,0 +1,136 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = "mongodb+srv://root:superStrongkace@cluster0.4nww99a.mongodb.net/cake?retryWrites=true&w=majority"
+}
+
+model User {
+  id                 String               @id @default(auto()) @map("_id") @db.ObjectId
+  email              String               @unique
+  username           String               @unique
+  Token              Token[]
+  password           String
+  createdAt          DateTime             @default(now())
+  role               Role                 @default(USER)
+  updatedAt          DateTime?            @updatedAt
+  phoneNumber        String?
+  firstName          String
+  lastName           String
+  recoveryPhase      String
+  platforms          Platform[]
+  rewards            Reward[]
+  slicesCollected    Int                  @default(0)
+  slicesPurchased    Int                  @default(0)
+  slicesSold         Int                  @default(0)
+  cakeBoxClaimed     Int                  @default(0)
+  totalRewardsEarned Int                  @default(0)
+  avatar             String?
+  sugar              Int                  @default(0)
+  TransactionHystory TransactionHystory[]
+  followedBy         User[]               @relation("UserFollows", fields: [followedByIDs], references: [id])
+  followedByIDs      String[]             @db.ObjectId
+  following          User[]               @relation("UserFollows", fields: [followingIDs], references: [id])
+  followingIDs       String[]             @db.ObjectId
+  wallets            Wallet[]
+}
+
+model Platform {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?  @db.ObjectId
+  link      String   @unique
+  isPopular Boolean? @default(false)
+  title     String
+}
+
+model Wallet {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  type    String
+  name    String
+  address String  @unique
+  User    User?   @relation(fields: [userId], references: [id])
+  userId  String? @db.ObjectId
+}
+
+model Reward {
+  id                 String               @id @default(auto()) @map("_id") @db.ObjectId
+  User               User                 @relation(fields: [userId], references: [id])
+  userId             String               @db.ObjectId
+  name               String
+  image              String
+  smallImage         String
+  cost               Int
+  rarity             RarityEnum           @default(STARTER)
+  category           String
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime?            @updatedAt
+  type               RewardEnum
+  isCakeBox          Boolean              @default(false)
+  isOnCakeBox        Boolean              @default(false)
+  isConfectionary    Boolean              @default(false)
+  TransactionHystory TransactionHystory[]
+  RewardBy           Reward[]             @relation("RewardFollows", fields: [RewardByIDs], references: [id])
+  RewardByIDs        String[]             @db.ObjectId
+  Reward             Reward[]             @relation("RewardFollows", fields: [rewardIDs], references: [id])
+  rewardIDs          String[]             @db.ObjectId
+  initial            Boolean              @default(false)
+}
+
+model Token {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  authToken    String
+  refreshToken String
+  userId       String    @db.ObjectId
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime? @updatedAt
+  isDisabled   Boolean   @default(false)
+  user         User      @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "Token_userId_fkey")
+}
+
+model TransactionHystory {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  userId    String   @db.ObjectId
+  sliceId   String?  @db.ObjectId
+  amount    Int?     @default(0)
+  Reward    Reward?  @relation(fields: [rewardId], references: [id])
+  rewardId  String?  @db.ObjectId
+  User      User     @relation(fields: [userId], references: [id])
+
+  @@map("TransactionHystoriReward")
+}
+
+enum Role {
+  ADMIN
+  USER
+  KOL
+}
+
+enum RarityEnum {
+  EXOTIC
+  LEGENDARY
+  EPIC
+  SUPERIOR
+  BASIC
+  STARTER
+  SLICE
+  COMMON
+}
+
+enum RewardEnum {
+  SLICE
+  CAKEBOX
+  SUGAR
+}
+
+enum CategoryEnum {
+  SPORT
+}

@@ -1,0 +1,23 @@
+<footer>
+  <div class="vectors-bg-desktop">
+    <img loading="lazy" class="banner" alt="">
+  </div>
+  <div class="vectors-bg-mobile">
+    <img loading="lazy" class="banner" src="assets/imgs/{{mobileFooterImage}}.png" alt="">
+    <div class="slices">
+      <img loading="lazy" class="slice" [src]="slice" alt="slice" *ngFor="let slice of footerSlices">
+    </div>
+  </div>
+  <div class="text-container">
+    <div>
+      <ul>
+        <li>
+          <a class="link" routerLink="/confectionery"
+            >{{language === 'ua' ? 'Ринок' : 'Marketplace'}}</a
+          >
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+</footer>

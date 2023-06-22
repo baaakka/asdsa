@@ -1,0 +1,69 @@
+.pagination {
+  margin: 25px auto auto;
+
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .wrapper {
+    width: 250px;
+    display: flex;
+    justify-content: center;
+
+    .pages {
+      font-family: 'Gilroy-500';
+      font-size: 16px;
+      color: var(--color-fonts-2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .left-arrows {
+      display: flex;
+    }
+
+    .right-arrows {
+      display: flex;
+    }
+  }
+}
+
+.mat-icon {
+  font-size: 16px !important;
+  height: 16px !important;
+  width: 16px !important;
+}
+
+.arrow {
+  width: 40px !important;
+  height: 40px !important;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.double {
+  width: 40px !important;
+  height: 40px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-icon {
+  overflow: visible;
+  width: 9px;
+  height: 9px;
+  cursor: pointer;
+
+  ::ng-deep svg {
+    path {
+      stroke: var(--color-fonts-list-head);
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "name": "cake",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/cake/src",
+  "projectType": "application",
+  "open": true,
+  "host": "0.0.0.0",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/cake",
+        "main": "apps/cake/src/main.ts",
+        "tsConfig": "apps/cake/tsconfig.app.json",
+        "assets": [
+          "apps/cake/src/assets"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/cake/src/environments/environment.ts",
+              "with": "apps/cake/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "cake:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "cake:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/cake/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/apps/cake"
+      ],
+      "options": {
+        "jestConfig": "apps/cake/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,221 @@
+@import '../../../../assets/styles/index.scss';
+
+.method-container {
+  width: 646px;
+
+  @media (max-width: 768px) {
+    width: 360px;
+    margin: auto;
+    height: 72vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    div{
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 380px) {
+    width: 300px;
+  }
+
+  .title {
+    h1 {
+      width: 540px;
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .mobile-title {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: block;
+      font-family: 'Gilroy-600';
+      font-style: normal;
+      font-size: 20px;
+      line-height: 24px;
+      text-align: center;
+      color: var(--color-fonts-2);
+      margin-top: 40px;
+    }
+  }
+
+  .methods-list {
+    margin-top: 30px;
+    width: 646px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    @media (max-width: 768px) {
+      width: 360px;
+      margin: 20px auto 0;
+    }
+
+    @media (max-width: 380px) {
+      width: 300px;
+    }
+
+    .method {
+      width: 202px;
+      height: 89px;
+      border-radius: 4px;
+      background: var(--bg-platform-color);
+      border: 1px solid var(--border-list-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      &.img-methods {
+        img {
+          width: 140px;
+          height: 60px;
+          object-fit: contain;
+
+          @media (max-width: 768px) {
+            width: 100px;
+            height: 50px;
+          }
+        }
+      }
+
+      @media (max-width: 768px) {
+        width: 140px;
+        height: 71px;
+      }
+
+      &.active {
+        border: 0px solid transparent;
+        @include gradient-linear-border(var(--deg-gradient-6), var(--color-gradient-left-6), var(--color-gradient-right-6), 1px, 4px);
+      }
+      &.add-wallet {
+        height: 175px !important;
+        border-radius: 6px;
+
+        @media (max-width:768px) {
+          height: 118px !important;
+        }
+
+        &.active {
+          border: 0px solid transparent;
+          @include gradient-linear-border(var(--deg-gradient-6), var(--color-gradient-left-6), var(--color-gradient-right-6), 1px, 6px);
+        }
+
+        img {
+          width: 88px;
+          height: 88px;
+          object-fit: cover;
+
+          @media (max-width:768px) {
+            width: 64px;
+            height: 64px;
+          }
+        }
+
+        h3 {
+          font-family: 'Gilroy-400';
+          font-size: 20px;
+          color: var(--color-fonts-2);
+          margin: 17px 0 0;
+
+          @media (max-width:768px) {
+            font-size: 16px;
+          }
+        }
+      }
+
+      .method-name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        h3 {
+          font-family: 'Gilroy-400';
+          font-size: 16px;
+          color: var(--color-fonts-2);
+          margin: 0;
+          margin-right: 10px;
+          @media (max-width: 768px) {
+            font-size: 12px;
+            margin-right: 5px;
+          }
+        }
+      }
+
+      .address {
+        margin-top: 13px;
+        color: var(--color-fonts-list-head);
+        font-size: 14px;
+        font-family: 'Gilroy-400';
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+
+  .payment-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 38px;
+
+    .show-all-btn {
+      margin-right: 52px;
+    }
+  }
+
+  .choice {
+    width: 100%;
+    display: none;
+    @media (max-width: 768px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-top: 30px;
+    }
+
+    &::after,
+    &::before {
+      content: '';
+      display: block;
+      width: 155px;
+      height: 2px;
+      background: var(--border-list-color);
+    }
+
+    p {
+      font-family: 'Gilroy-600';
+      font-style: normal;
+      font-size: 20px;
+      line-height: 24px;
+      color: var(--color-fonts-2);
+    }
+  }
+
+  .label {
+    font-family: 'Gilroy-500';
+    font-size: 14px;
+    color: var(--color-fonts-2);
+    margin-top: 31px;
+
+    @media (max-width:678px) {
+      font-size: 20px;
+      text-align: center;
+    }
+  }
+
+  .continue-btn {
+    margin-top: 46px;
+  }
+}

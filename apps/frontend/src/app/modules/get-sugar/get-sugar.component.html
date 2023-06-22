@@ -1,0 +1,8 @@
+<div class="container max-content">
+  <div class="stepper">
+    <div class="step first pointer" [class.active-step]="step === 1" [class.disabled-step]="step > 1" routerLink="/get-sugar">1</div>
+    <div class="step second" [class.active-step]="step === 2" [class.disabled-step]="step > 2" [class.inactive-step]="step === 1">2</div>
+    <div class="step third" [class.active-step]="step === 3" [class.inactive-step]="step !== 3">3</div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

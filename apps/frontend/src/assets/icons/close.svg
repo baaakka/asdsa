@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="12" height="11" viewBox="0 0 12 11" fill="none" (click)="onClosePressed()">
+    <path d="M10.8135 0.780273L1.26758 10.3262M10.8135 10.3262L1.26758 0.780273" stroke="#977E89" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
